@@ -69,7 +69,7 @@ export default function CreateEventModal(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={props.onHide}>
             Close
           </Button>
           <Button className={css(styles.createBtn)} variant="primary" onClick={handleClose}>
