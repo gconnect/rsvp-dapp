@@ -1,4 +1,4 @@
-import {Row,  Col, Card} from 'react-bootstrap'
+import {Row,  Col} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ export default function Footer() {
         <Col>Discord</Col>
       </Row>
       <Row>
-        <Col>Copyright (c) 20222. All rights reserved</Col>
+        <Col>Copyright (c) 2022. All rights reserved</Col>
         <Col>Twitter</Col>
       </Row>
     </div>

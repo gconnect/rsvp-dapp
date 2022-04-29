@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import {Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import coverImage from '../images/background.png'
 import Header from './header'
+import CheckinModal from './CheckinModal'
+import RSVPModal from './rsvpModal'
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -32,14 +35,14 @@ const styles = StyleSheet.create({
     width: '100px',
     backgroundColor: 'white',
     color: '#A32896',
-    padding: '16px',
+    padding: '8px',
     borderColor: 'white',
     fontWeight: 'bold',
   },
   checkinBtn: {
     backgroundColor: '#A32896',
     color: 'white',
-    padding: '16px',
+    padding: '8px',
     fontWeight: 'bold',
     borderColor: '#A32896',
     margin: '10px'
@@ -47,6 +50,8 @@ const styles = StyleSheet.create({
 })
 
 export default function Content() {
+  const [checkin, setCheckin] = useState(false);
+  const [rsvp, setRSVP] = useState(false);
   return(
     <div className={css(styles.wrapper)}>
       <Header/>
@@ -54,8 +59,10 @@ export default function Content() {
         <h1 className={css(styles.title)}>Tech Event <br/>Ticketing</h1>
         <p className={css(styles.description)}>Decentralized ticketing app built with Reach <br/> deployed on Algorand</p>
         <div className={css(styles.btnContainer)}>
-          <Button className={css(styles.rsvpBtn)}>RSVP</Button>
-          <Button className={css(styles.checkinBtn)}>CHECKIN</Button>
+          <Button className={css(styles.rsvpBtn)} onClick= {() => setRSVP(!rsvp)}>RSVP</Button>
+          <Button className={css(styles.checkinBtn)} onClick= {() => setCheckin(!checkin)}>CHECKIN</Button>
+          <CheckinModal show={checkin} onHide={() => setCheckin(false)}/>
+          <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
         </div>
       </div>   
     </div>
