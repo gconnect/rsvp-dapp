@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import {Row, Container, Col, Card, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import icon from '../images/location.png'
+import RSVPModal from './rsvpModal'
 
 const styles = StyleSheet.create({
   upcoming: {
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
 })
 
 export default function EventCard(props) {
+  const [rsvp, setRSVP] = useState(false);
+
   return(
       <div>
         <Card style={{ width: '18rem' }}>
@@ -47,7 +51,8 @@ export default function EventCard(props) {
             <Card.Text>
               <p>Fee: <span>{props.fee}</span></p>
             </Card.Text>
-            <Button className={css(styles.tickerBtn)} variant="primary">Get Ticket</Button>
+            <Button className={css(styles.tickerBtn)} variant="primary" onClick= {() => setRSVP(!rsvp)}>Get Ticket</Button>
+            <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
           </Card.Body>
         </Card>
       </div>

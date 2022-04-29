@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 export default function EventBanner() {
   return(
-    <div>
+    <div id='events'>
       <input type='text' className={css(styles.searchInput)} placeholder='Search events'/>
       <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
       <Row className="justify-content-md-evenly">
