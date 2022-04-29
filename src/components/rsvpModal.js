@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderColor: '#A32896',
     margin: '10px'
+  },
+  total: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    fontSize: '18px'
   }
   
 })
@@ -25,6 +30,7 @@ export default function RSVPModal(props) {
   const [eventId, setEventId] = useState("");
   const [ticket, setTicket] = useState(0);
   const [fee, setFee] = useState(0)
+  const [total, setTotal] = useState(0)
 
   return(
     <div>
@@ -45,7 +51,11 @@ export default function RSVPModal(props) {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control type="number" placeholder="Fee" autoFocus 
               value={fee} onChange={(e) => setFee(e.target.value)} />
-            </Form.Group>ber
+            </Form.Group>
+            <div className={css(styles.total)}>
+              <span>Total</span>
+              <span>5 Algo</span>
+            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>

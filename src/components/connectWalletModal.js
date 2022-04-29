@@ -8,12 +8,12 @@ const styles = StyleSheet.create({
   },
   connectBtn: {
     backgroundColor: 'white',
-    width: '100%',
+    width: '90%',
     color: '#A32896',
     padding: '16px',
     fontWeight: 'bold',
     borderColor: '#A32896',
-    margin: '10px'
+    margin: '10px 20px'
   }
   
 })
