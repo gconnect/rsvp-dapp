@@ -22,6 +22,10 @@ export default function RSVPModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [eventId, setEventId] = useState("");
+  const [ticket, setTicket] = useState(0);
+  const [fee, setFee] = useState(0)
+
   return(
     <div>
        <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
@@ -31,14 +35,17 @@ export default function RSVPModal(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Event Id" autoFocus />
+              <Form.Control type="text" placeholder="Event Id" autoFocus
+              value={eventId} onChange={(e) => setEventId(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Number of Tickets" autoFocus />
+              <Form.Control type="number" placeholder="Number of Tickets" autoFocus
+                value={ticket} onChange={(e) => setTicket(e.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Fee" autoFocus />
-            </Form.Group>
+              <Form.Control type="number" placeholder="Fee" autoFocus 
+              value={fee} onChange={(e) => setFee(e.target.value)} />
+            </Form.Group>ber
           </Form>
         </Modal.Body>
         <Modal.Footer>

@@ -22,6 +22,17 @@ export default function CreateEventModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [title, setTitle] = useState("");
+  const [fee, setFee] = useState(0);
+  const [image, setImage] = useState("");
+  const [venue, setVenue] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [description, setDescription] = useState("");
+
+    // const titleHandler = (e) =>{
+    //   setTitle(e.target.value)
+    //   console.log(title)
+    // }
   return(
     <div>
        <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
@@ -31,22 +42,29 @@ export default function CreateEventModal(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Event title" autoFocus />
+              <Form.Control type="text" placeholder="Event title" 
+              autoFocus value={title} onChange={(e) => setTitle(e.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Fee" autoFocus />
+              <Form.Control type="number" placeholder="Fee" 
+              autoFocus value={fee} onChange={(e) => setFee(e.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Image url" autoFocus />
+              <Form.Control type="text" placeholder="Image url" 
+              autoFocus value={image} onChange={(e) => setImage(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Venue" autoFocus />
+              <Form.Control type="text" placeholder="Venue" 
+              autoFocus value={venue} onChange={(e) => setVenue(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Event date and time" autoFocus />
+              <Form.Control type="datetime-local" placeholder="Event date and time"
+               autoFocus value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Control placeholder="Event description not more than 128 characters" as="textarea" rows={3} />
+              <Form.Control placeholder="Event description not more than 128 characters" 
+              as="textarea" rows={3}  value={description} onChange={(e) => setDescription(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>

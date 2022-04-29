@@ -22,6 +22,9 @@ export default function CheckinModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [eventId, setEventId] = useState("");
+  const [address, setAddress] = useState("");
+
   return(
     <div>
        <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
@@ -31,10 +34,12 @@ export default function CheckinModal(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Event Id" autoFocus />
+              <Form.Control type="text" placeholder="Event Id" autoFocus
+              value={eventId} onChange={(e) => setEventId(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="email" placeholder="Wallet Address" autoFocus />
+              <Form.Control type="text" placeholder="Wallet Address" autoFocus
+              value={address} onChange={(e) => setAddress(e.target.value)} />
             </Form.Group>
           </Form>
         </Modal.Body>
