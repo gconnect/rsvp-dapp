@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import * as backend from './build/index.main.mjs';
 import { loadStdlib } from '@reach-sh/stdlib';
