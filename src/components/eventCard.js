@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
   venue: {
     color: '#A32896',
     marginLeft: '8px'
+  },
+  card: {
+    boxShadow: '4px 8px 0 rgba(0,0,0,0.2',
+    transition: '0.3s'
   }
 })
 
@@ -38,7 +42,7 @@ export default function EventCard(props) {
 
   return(
       <div>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem' }} className={css(styles.card)}>
           <Card.Img variant="top" src={ require(`../images/${props.image}`)} />
           <Card.Body>
             <p>{props.dateTime}</p>

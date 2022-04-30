@@ -50,7 +50,7 @@ export default function CreateEventModal(props) {
               autoFocus value={fee} onChange={(e) => setFee(e.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="text" placeholder="Image url" 
+              <Form.Control type="file" placeholder="Image url" 
               autoFocus value={image} onChange={(e) => setImage(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

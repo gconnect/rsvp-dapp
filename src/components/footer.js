@@ -16,12 +16,12 @@ export default function Footer() {
   return(
     <div className={css(styles.wrapper)}>
       <Row>
-        <Col>TETicketing</Col>
-        <Col>Discord</Col>
+        <Col><p>TETicketing</p></Col>
+        <Col><p>Discord</p></Col>
       </Row>
       <Row>
-        <Col>Copyright (c) 2022. All rights reserved</Col>
-        <Col>Twitter</Col>
+        <Col><p>Copyright (c) 2022. All rights reserved</p></Col>
+        <Col><p>Twitter</p></Col>
       </Row>
     </div>
   )

@@ -5,19 +5,28 @@ import EventCard from './eventCard'
 
 const styles = StyleSheet.create({
   upcoming: {
-    marginLeft: '24px',
+    margin: '20px 7%',
   },
   event: {
     color: '#A32896',
   },
   searchInput: {
-    width: '30%',
+    width: '80%',
     padding: '4px',
-    margin: '20px',
+    margin: '20px 7%',
     alignItems: 'center',
+    '@media (max-width: 575px)': {
+      width: '90%',
+      margin: '20px'
+    }
   },
   events: {
-    margin: '15px'
+    margin: '15px 0',
+    '@media (max-width: 575px)': {
+      margin: '10px 60px',
+      // marginLeft: '48px'
+      alignContent: 'center'
+    }
   }
 })
 
@@ -26,7 +35,7 @@ export default function EventBanner() {
     <div id='events'>
       <input type='text' className={css(styles.searchInput)} placeholder='Search events'/>
       <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
-      <Row className="justify-content-md-evenly">
+      <Row className="justify-content-md-center" md='auto'>
         {EventItems.map((event) =>
           <Col className={css(styles.events)}>
             <EventCard 
