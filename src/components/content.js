@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     height: '100vh',
+    coverImage: `url(${coverImage})`,
     backgroundImage: `url(${coverImage})`
   },
   container: {

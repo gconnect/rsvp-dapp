@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between', 
   },
   menuItems: {
     display: 'inline',
@@ -28,9 +28,7 @@ const styles = StyleSheet.create({
     color: 'white',
     margin: '20px',
     cursor: 'pointer',
-    // '@media (max-width: 575px)': {
-    //   display: 'block'
-    // }
+   
   },
   menu: {
     margin: '20px',
