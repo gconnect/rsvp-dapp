@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderColor: '#A32896',
     margin: '10px'
+  },
+  modal: {
+    '@media (max-width: 575px)': {
+      width: '90%',
+      margin: '10px',
+    }
   }
   
 })
@@ -27,7 +33,7 @@ export default function CheckinModal(props) {
 
   return(
     <div>
-       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
+       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered className={css(styles.modal)}>
         <Modal.Header closeButton>
           <Modal.Title className={css(styles.title)}>Checkin</Modal.Title>
         </Modal.Header>

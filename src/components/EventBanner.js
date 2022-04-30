@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     color: '#A32896',
   },
   searchInput: {
-    width: '80%',
+    width: '70%',
     padding: '4px',
     margin: '20px 7%',
     alignItems: 'center',
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     margin: '15px 0',
     '@media (max-width: 575px)': {
       margin: '10px 60px',
-      // marginLeft: '48px'
       alignContent: 'center'
     }
   }

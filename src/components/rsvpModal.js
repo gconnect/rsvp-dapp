@@ -17,8 +17,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '18px'
+  },
+  modal: {
+    '@media (max-width: 575px)': {
+      width: '90%',
+      margin: '10px',
+    }
   }
-  
 })
 
 export default function RSVPModal(props) {
@@ -33,8 +38,8 @@ export default function RSVPModal(props) {
   const [total, setTotal] = useState(0)
 
   return(
-    <div>
-       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
+    <div >
+       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered className={css(styles.modal)}>
         <Modal.Header closeButton>
           <Modal.Title className={css(styles.title)}>RSVP</Modal.Title>
         </Modal.Header>

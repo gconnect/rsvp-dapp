@@ -14,8 +14,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderColor: '#A32896',
     margin: '10px 20px'
+  },
+  modal: {
+    '@media (max-width: 575px)': {
+      width: '90%',
+      margin: '10px',
+    }
   }
-  
 })
 
 export default function ConnectWallet(props) {
@@ -26,7 +31,7 @@ export default function ConnectWallet(props) {
 
   return(
     <div>
-       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered >
+       <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered className={css(styles.modal)}>
         <Modal.Header closeButton>
           <Modal.Title className={css(styles.title)}>Connect Wallet</Modal.Title>
         </Modal.Header>
