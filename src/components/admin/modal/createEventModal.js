@@ -34,6 +34,7 @@ export default function CreateEventModal(props) {
   const [venue, setVenue] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
+  const [totalTickets, setTotalTicket] = useState(0);
 
     // const titleHandler = (e) =>{
     //   setTitle(e.target.value)
@@ -66,6 +67,10 @@ export default function CreateEventModal(props) {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control type="datetime-local" placeholder="Event date and time"
                autoFocus value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Control type="number" placeholder="Available Tickets Supply "
+               autoFocus value={totalTickets} onChange={(e) => setTotalTicket(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Control placeholder="Event description not more than 128 characters" 

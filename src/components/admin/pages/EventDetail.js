@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import { Container, Tabs, Tab, Button, Form } from 'react-bootstrap'
-import Header from '../header'
-import CreateEventModal from '../../admin/modal/createEventModal'
-import EventBanner from '../EventBanner'
-import EventCard from '../EventCard'
+import { Button, Form } from 'react-bootstrap'
 import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
 import Admin from './admin'
@@ -50,6 +46,18 @@ downloadBtn: {
   marginRight: '5px',
   marginLeft: '5px'
 },
+delete: {
+  backgroundColor: 'orange',
+  color: 'white',
+  fontWeight: 'bold',
+  borderColor: 'orange',
+  marginRight: '5px',
+  marginLeft: '5px',
+},
+details: {
+  display: 'flex',
+  justifyContent: 'space-between'
+}
 })
 
 export default function EventDetail() {
@@ -65,8 +73,13 @@ export default function EventDetail() {
           <div className={css(styles.eventDetails)}>
             <h4 className={css(styles.title)}>Blockchain Conference</h4>
             <p>17 Nov, 2021 10:00 AM</p>
-            <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
-            <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
+            <div className={css(styles.details)}>
+              <div>
+                <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
+                <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
+              </div>
+              <Button className={css(styles.delete)}>Delete</Button>
+            </div>   
           </div>
         </div>
         <div className={css(styles.formContainer)}>

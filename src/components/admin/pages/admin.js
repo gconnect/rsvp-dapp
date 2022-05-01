@@ -44,7 +44,6 @@ export default function Admin(props) {
       </Container> 
       <Container className={css(styles.container)}>
         {props.children}
-        {/* <Dashboard/> */}
       </Container>
     </div>
   )
