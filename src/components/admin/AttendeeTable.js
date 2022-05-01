@@ -38,10 +38,8 @@ export default function AttendeeTable() {
              <td>{item.ticketTitle}</td>
              <td>{item.registrationDate}</td>
              <td>#50</td>
-             <td><input type='checkbox' onChange={(e) => { setChecked(e.target.value)}} onClick={() => {setShow(true)}}  /></td>
-              { !checked ?? <CheckinModal show={show} onHide={() => setShow(false)}/> }
-
-             
+             <td><input type='checkbox' onChange={(e) => { setChecked(e.target.value)}} onClick={() => {setShow(true)}} /></td>
+              { checked ? <CheckinModal show={show} onHide={() => setShow(false)}/> : null }    
            </tr>
           )}
         </tbody>
