@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
       width: '150px',
     }
   },
-  checkinBtn: {
+  adminBtn: {
     width: '200px',
     backgroundColor: '#A32896',
     color: 'white',
@@ -92,8 +92,7 @@ export default function Content() {
         <p className={css(styles.description)}>Decentralized ticketing app built with Reach <br/> deployed on Algorand</p>
         <div className={css(styles.btnContainer)}>
           <Button className={css(styles.rsvpBtn)} onClick= {() => setRSVP(!rsvp)}>RSVP</Button>
-          <Button className={css(styles.checkinBtn)}><Link className={css(styles.adminItem)} to='/admin'>ORGANIZE</Link></Button>
-          <Button className={css(styles.organizeBtn)} onClick= {() => setModalShow(!modalShow)}>ORGANIZE</Button>
+          <Button className={css(styles.adminBtn)}><Link className={css(styles.adminItem)} to='/admin'>ORGANIZE</Link></Button>
           <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
         </div>
       </div>   

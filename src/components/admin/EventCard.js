@@ -5,16 +5,27 @@ import image from '../../images/background.png'
 const styles = StyleSheet.create({
   eventImage: {
     borderRadius: '50%',
+    '@media (max-width: 575px)': {
+      height: '70px',
+      width: '70px'
+    }
   },
   eventContainer: {
     display: 'flex',
     justifyContent: 'flex-start',
-    margin: '24px'
+    margin: '24px',
+    '@media (max-width: 575px)': {
+      fontSize: '16px'
+    }
   },
   eventDetails: {
     marginLeft: '24px'
   },
-  line: {
+  title: {
+    '@media (max-width: 575px)': {
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }
   },
   labelText: {
     margin: '8px'
@@ -28,7 +39,7 @@ export default function EventCard() {
           <img className={css(styles.eventImage)} src={image} alt='event' height='100px' width='100px' />
         </div>
         <div className={css(styles.eventDetails)}>
-          <h4>Blockchain Conference</h4>
+          <h4 className={css(styles.title)}>Blockchain Conference</h4>
           <p>17 Nov, 2021 10:00 AM</p>
           <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
           <label className={css(styles.labelText)}>Checkins: <b>8</b></label>

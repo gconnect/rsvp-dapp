@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     margin: '20px',
     cursor: 'pointer',
     '@media (max-width: 575px)': {
-      display: 'none'
+      marginTop: '24px'
     }
   },
   menu: {
@@ -26,15 +26,30 @@ const styles = StyleSheet.create({
   connect: {
     backgroundColor: '#A32896',
     borderColor: 'white',
+    '@media (max-width: 575px)': {
+      fontSize: '14px',
+      padding: '8px'
+    }
   },
   logo: {
     margin: '16px',
+    '@media (max-width: 575px)': {
+      height: '24px',
+      width: '24px'
+    }
   },
   title: {
     marginTop: '36px',
     color: '#A32896',
     fontSize: '24px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    '@media (max-width: 575px)': {
+      fontSize: '16px',
+    }
+  },
+  adminItem: {
+    textDecoration: 'none',
+    color: '#A32896'
   }
 })
 export default function Header() {
@@ -47,7 +62,7 @@ export default function Header() {
         <Link to='/'>
           <img className={css(styles.logo)} src={logo} alt='logo' height='36px' width='36px'/>
         </Link>
-        <span className={css(styles.title)}>Admin Dashboard</span>
+        <span className={css(styles.title)}><Link className={css(styles.adminItem)} to='/admin'>Admin Dashboard</Link></span>
       </div>
 
       <div>

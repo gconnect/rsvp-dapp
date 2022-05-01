@@ -7,6 +7,7 @@ import EventBanner from '../EventBanner'
 import EventCard from '../EventCard'
 import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
+import Admin from './admin'
 
 const styles = StyleSheet.create({
 eventImage: {
@@ -16,7 +17,16 @@ eventContainer: {
   display: 'flex',
   justifyContent: 'flex-start',
   margin: '24px',
-  padding: '24px'
+  padding: '24px',
+  '@media (max-width: 575px)': {
+    fontSize: '12px',
+    margin: '5px'
+  }
+},
+title: {
+  '@media (max-width: 575px)': {
+    fontSize: '14px',
+  }
 },
 eventDetails: {
   marginLeft: '24px'
@@ -27,7 +37,10 @@ labelText: {
 formContainer: {
   display: 'flex',
   justifyContent: 'space-around',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  '@media (max-width: 575px)': {
+    // width: '100%',
+  }
 },
 downloadBtn: {
   backgroundColor: 'white',
@@ -36,7 +49,6 @@ downloadBtn: {
   borderColor: '#A32896',
   marginRight: '5px',
   marginLeft: '5px'
-
 },
 })
 
@@ -44,24 +56,26 @@ export default function EventDetail() {
   const [modalShow, setModalShow] = useState(false);
 
   return(
-    <div className={css(styles.wrapper)}>
-      <div className={css(styles.eventContainer)}>
-        <div>
-          <img className={css(styles.eventImage)} src={image} alt='event' height='100px' width='100px' />
+    <Admin>
+      <div className={css(styles.wrapper)}>
+        <div className={css(styles.eventContainer)}>
+          <div>
+            <img className={css(styles.eventImage)} src={image} alt='event' height='100px' width='100px' />
+          </div>
+          <div className={css(styles.eventDetails)}>
+            <h4 className={css(styles.title)}>Blockchain Conference</h4>
+            <p>17 Nov, 2021 10:00 AM</p>
+            <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
+            <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
+          </div>
         </div>
-        <div className={css(styles.eventDetails)}>
-          <h4>Blockchain Conference</h4>
-          <p>17 Nov, 2021 10:00 AM</p>
-          <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
-          <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
+        <div className={css(styles.formContainer)}>
+          <Form.Control type="text" placeholder="search" />
+          <Button className={css(styles.downloadBtn)}>PDF</Button>
+          <Button className={css(styles.downloadBtn)}>CSV</Button>
         </div>
+        <AttendeeTable/>
       </div>
-      <div className={css(styles.formContainer)}>
-        <Form.Control type="text" placeholder="search" />
-        <Button className={css(styles.downloadBtn)}>PDF</Button>
-        <Button className={css(styles.downloadBtn)}>CSV</Button>
-      </div>
-      <AttendeeTable/>
-    </div>
+    </Admin>
   )
 }

@@ -1,7 +1,11 @@
+import { useState } from 'react'
 import {Row, Col} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { EventItems } from '../admin/data/eventItems'
 import EventCard from '../admin/EventCard'
+import Admin from './pages/admin'
+import Dashboard from './pages/dashboard'
+import EventDetail from './pages/EventDetail'
 
 const styles = StyleSheet.create({
   searchInput: {
@@ -12,7 +16,8 @@ const styles = StyleSheet.create({
   },
   eventDetails: {
     textDecoration: 'none',
-    color: 'black'
+    color: 'black',
+    cursor: 'pointer'
   }
 })
 export default function EventBanner() {
@@ -20,10 +25,10 @@ export default function EventBanner() {
   return(
     <div>
         {EventItems.map((item) =>
-          <a className={css(styles.eventDetails)} href='EventDetail'>
+          <a className={css(styles.eventDetails)} href='/EventDetail'>
             <EventCard />
           </a>
-        )}       
+        )} 
     </div>
   )
 }

@@ -2,20 +2,27 @@
 import {Table, Col, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { AttendeeDetailItem } from './data/attendeeDetailItem'
+
 const styles = StyleSheet.create({
+
   table: {
     maxWidth: '165px',
+    '@media (max-width: 575px)': {
+      fontSize: '12px'
+    }
   },
+  
 })
+
 export default function AttendeeTable() {
 
   return(
     <div>
-      <Table striped bordered hover>
+      <Table striped bordered hover className={css(styles.table)}>
         <thead>
           <tr>
             <th>Address</th>
-            <th>TicketTitle</th>
+            <th>Ticket Title</th>
             <th>Registration Date</th>
             <th>Fee Paid</th>
             <th>Checkin</th>
@@ -28,7 +35,7 @@ export default function AttendeeTable() {
              <td>{item.ticketTitle}</td>
              <td>{item.registrationDate}</td>
              <td>#50</td>
-             <td><Button>Checkin</Button></td>
+             <td><input type='checkbox' /></td>
            </tr>
           )}
         </tbody>

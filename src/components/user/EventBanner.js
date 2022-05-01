@@ -1,4 +1,4 @@
-import {Row,  Col, Card} from 'react-bootstrap'
+import {Row,  Col, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import {EventItems} from '../user/data/eventItems'
 import EventCard from './eventCard'
@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
     color: '#A32896',
   },
   searchInput: {
-    width: '70%',
+    width: '80%',
     padding: '4px',
-    margin: '20px 7%',
+    margin: '20px',
     alignItems: 'center',
     '@media (max-width: 575px)': {
       width: '90%',
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
 export default function EventBanner() {
   return(
     <div id='events'>
-      <input type='text' className={css(styles.searchInput)} placeholder='Search events'/>
+      {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
+      <Form.Control className={css(styles.searchInput)} type="text" placeholder="search events" />
+
       <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
       <Row className={css(styles.upcoming)} >
         {EventItems.map((event) =>

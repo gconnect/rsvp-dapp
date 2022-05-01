@@ -30,7 +30,7 @@ createContainer: {
 }
 })
 
-export default function Admin() {
+export default function Admin(props) {
   const [modalShow, setModalShow] = useState(false);
 
   return(
@@ -43,8 +43,8 @@ export default function Admin() {
         </div>
       </Container> 
       <Container className={css(styles.container)}>
-        {/* <EventDetail/> */}
-        <Dashboard/>
+        {props.children}
+        {/* <Dashboard/> */}
       </Container>
     </div>
   )
