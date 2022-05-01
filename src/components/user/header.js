@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite'
 import logo from '../images/logo.png'
 import CreateEventModal from './createEventModal'
 import CheckinModal from './CheckinModal'
-import ConnectWallet from './connectWalletModal'
+import ConnectWallet from '../connectWalletModal'
 
 const styles = StyleSheet.create({
   wrapper: {
