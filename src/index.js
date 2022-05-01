@@ -4,11 +4,12 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 // import Home from './components/user/home';
 import Admin from './components/admin/pages/admin';
+import AppNavigator from './route';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Admin />
+    <AppNavigator />
   </React.StrictMode>
 );
 

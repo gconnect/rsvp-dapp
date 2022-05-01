@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-import {Row, Col, Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import logo from '../images/logo.png'
-import CreateEventModal from './createEventModal'
-import CheckinModal from './CheckinModal'
+import { Link } from 'react-router-dom'
+import logo from '../../images/logo.png'
 import ConnectWallet from '../connectWalletModal'
 
 const styles = StyleSheet.create({
@@ -44,10 +43,12 @@ const styles = StyleSheet.create({
   logo: {
     margin: '16px',
   },
+  adminItem: {
+    textDecoration: 'none',
+    color: 'white'
+  }
 })
 export default function Header() {
-  const [modalShow, setModalShow] = useState(false);
-  const [checkin, setCheckin] = useState(false);
   const [wallet, setWallet] = useState(false);
 
   return(
@@ -59,11 +60,8 @@ export default function Header() {
       <div className={css(styles.menu)}>
         <ul >
           <li className={css(styles.menuItems)}><a className={css(styles.event)} href='#events'>Events</a></li>
-          <li className={css(styles.menuItems)} onClick= {() => setCheckin(!checkin)}>Checkin</li>
-          <li className={css(styles.menuItems)} onClick= {() => setModalShow(!modalShow)}>Organize</li>
+          <li className={css(styles.menuItems)}><Link className={css(styles.adminItem)} to='/admin'>Admin</Link></li>
           <li className={css(styles.btnItems)}><Button className={css(styles.connect)} onClick= {() => setWallet(!wallet)}>Connect Wallet</Button></li>
-          <CreateEventModal show={modalShow} onHide={() => setModalShow(false)}/>
-          <CheckinModal show={checkin} onHide={() => setCheckin(false)}/>
           <ConnectWallet show={wallet} onHide={() => setWallet(false)}/>
         </ul>
       </div>

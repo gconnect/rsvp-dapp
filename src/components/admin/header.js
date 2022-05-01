@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Container, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
+import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import ConnectWallet from '../connectWalletModal'
 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     color: '#A32896',
     fontSize: '24px',
     fontWeight: 'bold'
-  },
+  }
 })
 export default function Header() {
   const [wallet, setWallet] = useState(false);
@@ -43,7 +44,9 @@ export default function Header() {
     <Container>
       <div className={css(styles.wrapper)}>     
       <div>
-        <img className={css(styles.logo)} src={logo} alt='logo' height='36px' width='36px'/>
+        <Link to='/'>
+          <img className={css(styles.logo)} src={logo} alt='logo' height='36px' width='36px'/>
+        </Link>
         <span className={css(styles.title)}>Admin Dashboard</span>
       </div>
 

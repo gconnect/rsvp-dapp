@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import {Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import coverImage from '../images/background.png'
+import coverImage from '../../images/background.png'
 import Header from './header'
-import CheckinModal from './CheckinModal'
+import { Link } from 'react-router-dom'
 import RSVPModal from './rsvpModal'
-import CreateEventModal from './createEventModal'
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -74,11 +73,14 @@ const styles = StyleSheet.create({
       borderColor: '#A32896',
       margin: 'auto',
     }
+  },
+  adminItem: {
+    textDecoration: 'none',
+    color: 'white'
   }
 })
 
 export default function Content() {
-  const [checkin, setCheckin] = useState(false);
   const [rsvp, setRSVP] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
@@ -90,10 +92,8 @@ export default function Content() {
         <p className={css(styles.description)}>Decentralized ticketing app built with Reach <br/> deployed on Algorand</p>
         <div className={css(styles.btnContainer)}>
           <Button className={css(styles.rsvpBtn)} onClick= {() => setRSVP(!rsvp)}>RSVP</Button>
-          <Button className={css(styles.checkinBtn)} onClick= {() => setCheckin(!checkin)}>CHECKIN</Button>
+          <Button className={css(styles.checkinBtn)}><Link className={css(styles.adminItem)} to='/admin'>ORGANIZE</Link></Button>
           <Button className={css(styles.organizeBtn)} onClick= {() => setModalShow(!modalShow)}>ORGANIZE</Button>
-          <CreateEventModal show={modalShow} onHide={() => setModalShow(false)}/>
-          <CheckinModal show={checkin} onHide={() => setCheckin(false)}/>
           <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
         </div>
       </div>   

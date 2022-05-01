@@ -1,6 +1,6 @@
 import {Row,  Col, Card} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import {EventItems} from '../data/eventItems'
+import {EventItems} from '../user/data/eventItems'
 import EventCard from './eventCard'
 
 const styles = StyleSheet.create({
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   events: {
     margin: '15px 0',
     '@media (max-width: 575px)': {
-      // marginRight: '20px',
     }
   },
   eventRow: {
