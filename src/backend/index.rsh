@@ -17,11 +17,11 @@ export const main = Reach.App(() => {
     // resellProfit: UInt
   });
 
-  // const RSVPier = API('RSVPier', {
-  //   setRSVP: Fun([], Bool),
-  //   buyTicket: Fun([UInt], Null)
-  //   // sellTicket: UInt
-  // });
+  const RSVPier = API('RSVPier', {
+    setRSVP: Fun([], Bool),
+    buyTicket: Fun([UInt], Null)
+    // sellTicket: UInt
+  });
 
   // const Checkin = API('Checkin', {
   //   setCheckin: Fun([Address], Bool),
@@ -36,7 +36,7 @@ export const main = Reach.App(() => {
   });
   TicketMarketPlace.publish(platformFee);
   TicketMarketPlace.interact.ready();
-  TicketMarketPlace.commit();
+  commit();
   
   Organizer.only(() => {
     const ticket = declassify(interact.ticket);
@@ -49,16 +49,16 @@ export const main = Reach.App(() => {
   Organizer.publish(ticket,ticketFee, deadline, payPlatformFee);
   Organizer.interact.ready();
   commit();
-  // Organizer.publish()
 
   // Organizer.pay(payPlatformFee);
   // transfer(payPlatformFee).to(TicketMarketPlace)
 
-  // RSVPier.only(() => {
-  //   const [setRSVP, buyTicket] = declassify([interact.setRSVP, interact.buyTicket]);
-  // });
-  // RSVPier.publish(setRSVP, buyTicket);
-  // RSVPier.commit();
+  RSVPier.only(() => {
+    const setRSVP = declassify(interact.setRSVP()); 
+    const buyTicket = declassify(interact.buyTicket(ticketFee));
+  });
+  RSVPier.publish(setRSVP, buyTicket);
+  commit();
 
   // Checkin.only(() => {
   //   const [setCheckin, isTime, poapToken] = declassify([interact.setCheckin, declassify.isTime, declassify.poapToken])

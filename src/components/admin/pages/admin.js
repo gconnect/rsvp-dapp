@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import { Container, Tabs, Tab, Button } from 'react-bootstrap'
+import { Container,  Button } from 'react-bootstrap'
 import Header from '../header'
-import CreateEventModal from '../../admin/modal/createEventModal'
-import EventBanner from '../EventBanner'
-import EventCard from '../EventCard'
-import EventDetail from './EventDetail'
-import Dashboard from './dashboard'
+import CreateEventModal from '../../user/createEventModal'
+
 
 const styles = StyleSheet.create({
 wrapper: {

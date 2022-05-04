@@ -5,6 +5,7 @@ import { StyleSheet, css } from 'aphrodite'
 import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import ConnectWallet from '../connectWalletModal'
+import CreateEventModal from '../admin/modal/createEventModal'
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
 })
 export default function Header() {
   const [wallet, setWallet] = useState(false);
-
+  
   const uauth = new UAuth({
     // clientID: 'uauth_example_spa_id',
     clientID: 'b9880354-ed6a-438c-b7d3-8b6b2a489db8',
@@ -76,8 +77,8 @@ const login = async () => {
       <div className={css(styles.menu)}>
         <ul >
           <li className={css(styles.menuItems)}><a className={css(styles.event)} href='#events'>Events</a></li>
-          <li className={css(styles.menuItems)} onClick={() => {login()}}>Login</li>
           <li className={css(styles.menuItems)}><Link className={css(styles.adminItem)} to='/admin'>Admin</Link></li>
+          <li className={css(styles.menuItems)} onClick={() => {login()}}>Login</li>
           <li className={css(styles.btnItems)}><Button className={css(styles.connect)} onClick= {() => setWallet(!wallet)}>Connect Wallet</Button></li>
           <ConnectWallet show={wallet} onHide={() => setWallet(false)}/>
         </ul>

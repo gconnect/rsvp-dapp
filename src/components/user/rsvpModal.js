@@ -53,10 +53,6 @@ export default function RSVPModal(props) {
               <Form.Control type="number" placeholder="Number of Tickets" autoFocus
                 value={ticket} onChange={(e) => setTicket(e.target.value)}/>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="number" placeholder="Fee" autoFocus 
-              value={fee} onChange={(e) => setFee(e.target.value)} />
-            </Form.Group>
             <div className={css(styles.total)}>
               <span>Total</span>
               <span>5 Algo</span>

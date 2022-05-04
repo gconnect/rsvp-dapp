@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite'
 import { Button, Form } from 'react-bootstrap'
 import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
-import Admin from './admin'
+import Admin from '../../../components/admin/pages/admin'
 
 const styles = StyleSheet.create({
 eventImage: {
