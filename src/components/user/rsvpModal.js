@@ -43,6 +43,9 @@ export default function RSVPModal(props) {
 
   const buyTicket = async () => {
     const acc = await stdlib.getDefaultAccount();
+    console.log(acc)
+    await acc.tokenAccept(props.tokenId);
+    await acc.tokenAccepted
     await stdlib.transfer(acc, acc, numTicket, props.tokenId)
   }
 
