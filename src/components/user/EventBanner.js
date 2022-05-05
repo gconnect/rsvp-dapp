@@ -33,21 +33,16 @@ const styles = StyleSheet.create({
   }
 })
 
-
-
 export default function EventBanner() {
  const [list, setList] = useState([])
 
   const events = async () => {
     const eventArray =  await EventList("Ticketing")
     setList(eventArray)
-      console.log(list)
+      console.log(eventArray)
    }
-
-   useEffect(() => {
-     events()
-  }, [])
-
+   events()
+   
     return(
     <div id='events'>
       {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
@@ -56,17 +51,17 @@ export default function EventBanner() {
       <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
       <Row className={css(styles.upcoming)} >
        
-        { list ? list.map((event) =>
+        { list.map((event) =>
           <Col className={css(styles.events)}>
             <EventCard 
-            title={event.metadata} 
-            dateTime={event['date-pinned']} 
-            // image={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`}
-            venue={event.id}
-            fee={event.size}
+            title={event.metadata.keyvalues['title']} 
+            dateTime={event['date_pinned']} 
+            image={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`}
+            venue={event.metadata.keyvalues['venue']} 
+            fee={event.metadata.keyvalues['fee']} 
              />
           </Col>
-        ): [null]}
+        )}
       </Row>
     </div>
   )

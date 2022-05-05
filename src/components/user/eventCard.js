@@ -43,12 +43,12 @@ export default function EventCard(props) {
   return(
       <div>
         <Card style={{ width: '18rem' }} className={css(styles.card)}>
-          <Card.Img variant="top" src={ require(`${icon}`)} />
+          <Card.Img variant="top" src={props.image} />
           <Card.Body>
             <p>{props.dateTime}</p>
             <Card.Title>{props.title}</Card.Title>
             <div className={css(styles.location)}>
-              <image src='../images/location.png' alt='location' width= '24px' height= '48px' />
+              {/* <image src='../images/location.png' alt='location' width= '24px' height= '48px' /> */}
               <span>Venue:</span>
               <span className={css(styles.venue)}>{props.venue}</span>
             </div>
