@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import { Container,  Button } from 'react-bootstrap'
 import Header from '../header'
-import CreateEventModal from '../../user/createEventModal'
+import CreateEventModal from '../../admin/modal/createEventModal'
 
 
 const styles = StyleSheet.create({

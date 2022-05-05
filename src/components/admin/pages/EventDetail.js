@@ -4,6 +4,7 @@ import { Button, Form } from 'react-bootstrap'
 import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
 import Admin from '../../../components/admin/pages/admin'
+import { removePinFromIPFS } from '../../../api/deletePinData'
 
 const styles = StyleSheet.create({
 eventImage: {
@@ -62,7 +63,10 @@ details: {
 
 export default function EventDetail() {
   const [modalShow, setModalShow] = useState(false);
-
+  const deletePin = async () =>{
+    await removePinFromIPFS('QmPLCsFwj1iPjjrfaKgCja7uYHt4X63mMVbwRc6pDaGoMW')
+  }
+  // const deletePin = removePinFromIPFS('QmYhqNBakQV9RBCm9BW5a2pDVbbuwGDYAAWBR19sqm48CT')
   return(
     <Admin>
       <div className={css(styles.wrapper)}>
@@ -78,7 +82,7 @@ export default function EventDetail() {
                 <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
                 <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
               </div>
-              <Button className={css(styles.delete)}>Delete</Button>
+              <Button className={css(styles.delete)} onClick={() => deletePin()}>Delete</Button>
             </div>   
           </div>
         </div>

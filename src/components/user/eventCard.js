@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Row, Container, Col, Card, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-// import icon from '../../images/background.png'
+import icon from '../../images/background.png'
 import RSVPModal from './rsvpModal'
 
 const styles = StyleSheet.create({
@@ -43,7 +43,7 @@ export default function EventCard(props) {
   return(
       <div>
         <Card style={{ width: '18rem' }} className={css(styles.card)}>
-          <Card.Img variant="top" src={ require(`../../images/${props.image}`)} />
+          <Card.Img variant="top" src={ require(`${icon}`)} />
           <Card.Body>
             <p>{props.dateTime}</p>
             <Card.Title>{props.title}</Card.Title>

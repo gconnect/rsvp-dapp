@@ -2,6 +2,9 @@ import {Row,  Col, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import {EventItems} from '../user/data/eventItems'
 import EventCard from './eventCard'
+import { EventList } from '../../api/EventList'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const styles = StyleSheet.create({
   upcoming: {
@@ -30,25 +33,40 @@ const styles = StyleSheet.create({
   }
 })
 
+
+
 export default function EventBanner() {
-  return(
+ const [list, setList] = useState([])
+
+  const events = async () => {
+    const eventArray =  await EventList("Ticketing")
+    setList(eventArray)
+      console.log(list)
+   }
+
+   useEffect(() => {
+     events()
+  }, [])
+
+    return(
     <div id='events'>
       {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
       <Form.Control className={css(styles.searchInput)} type="text" placeholder="search events" />
 
       <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
       <Row className={css(styles.upcoming)} >
-        {EventItems.map((event) =>
+       
+        { list ? list.map((event) =>
           <Col className={css(styles.events)}>
             <EventCard 
-            title={event.title} 
-            dateTime={event.dateTime} 
-            image={event.image} 
-            venue={event.venue}
-            fee={event.fee}
+            title={event.metadata} 
+            dateTime={event['date-pinned']} 
+            // image={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`}
+            venue={event.id}
+            fee={event.size}
              />
           </Col>
-        )}
+        ): [null]}
       </Row>
     </div>
   )
