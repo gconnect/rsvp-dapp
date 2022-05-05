@@ -6,6 +6,7 @@ import EventCard from '../admin/EventCard'
 import Admin from './pages/admin'
 import Dashboard from './pages/dashboard'
 import EventDetail from './pages/EventDetail'
+import { EventList } from '../../api/EventList'
 
 const styles = StyleSheet.create({
   searchInput: {
@@ -21,12 +22,20 @@ const styles = StyleSheet.create({
   }
 })
 export default function EventBanner() {
+  const [list, setList] = useState([])
+
+  const events = async () => {
+    const eventArray =  await EventList("Ticketing")
+    setList(eventArray)
+      console.log(eventArray)
+   }
+   events()
 
   return(
     <div>
-        {EventItems.map((item) =>
-          <a className={css(styles.eventDetails)} href='/EventDetail'>
-            <EventCard />
+        {list.map((event) =>
+          <a className={css(styles.eventDetails)} href={`/EventDetail/${event.id}`}>
+            <EventCard image ={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`} title={event.metadata.keyvalues['title']} dateTime={event.metadata.keyvalues['dateTime']} />
           </a>
         )} 
     </div>

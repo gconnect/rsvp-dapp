@@ -1,4 +1,4 @@
-import {Row,  Col, Form} from 'react-bootstrap'
+import {Row,  Col, Form, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import {EventItems} from '../user/data/eventItems'
 import EventCard from './eventCard'
@@ -48,17 +48,17 @@ export default function EventBanner() {
       {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
       <Form.Control className={css(styles.searchInput)} type="text" placeholder="search events" />
 
-      <h3 className={css(styles.upcoming)}>Upcoming <span className={css(styles.event)}>Events</span></h3>
+      <h3 className={css(styles.upcoming)}>Popular <span className={css(styles.event)}>Events</span></h3>
       <Row className={css(styles.upcoming)} >
-       
         { list.map((event) =>
           <Col className={css(styles.events)}>
             <EventCard 
-            title={event.metadata.keyvalues['title']} 
-            dateTime={event['date_pinned']} 
-            image={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`}
-            venue={event.metadata.keyvalues['venue']} 
-            fee={event.metadata.keyvalues['fee']} 
+              title={event.metadata.keyvalues['title']} 
+              dateTime={event['date_pinned']} 
+              image={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`}
+              venue={event.metadata.keyvalues['venue']} 
+              fee={event.metadata.keyvalues['fee']} 
+              tokenId={event.metadata.keyvalues['token']}
              />
           </Col>
         )}

@@ -5,6 +5,9 @@ import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
 import Admin from '../../../components/admin/pages/admin'
 import { removePinFromIPFS } from '../../../api/deletePinData'
+import { useParams, Navigate } from 'react-router-dom'
+import { EventList } from '../../../api/EventList'
+import { useEffect } from 'react'
 
 const styles = StyleSheet.create({
 eventImage: {
@@ -63,20 +66,50 @@ details: {
 
 export default function EventDetail() {
   const [modalShow, setModalShow] = useState(false);
+  const [list, setList] = useState([])
+  const [deleted, setDeleted] = (false)
+
+  const events = async () => {
+    const eventArray =  await EventList("Ticketing")
+    setList(eventArray)
+      console.log(eventArray)
+   }
+   events()
+
+   const { eventId } = useParams()
+   const event = list.find(item => item.id === eventId)
+  
+
+  // useEffect(() => {
+  //   // const events = async () => {
+  //   //   const eventArray =  await EventList("Ticketing")
+  //   //   setList(eventArray)
+  //   //     console.log(eventArray)
+  //   //  }
+  //    events()
+  // }, [])
+
+  
+  // console.log(`${event.id}`)
+
+  // delete unpin item
   const deletePin = async () =>{
-    await removePinFromIPFS('QmPLCsFwj1iPjjrfaKgCja7uYHt4X63mMVbwRc6pDaGoMW')
-  }
-  // const deletePin = removePinFromIPFS('QmYhqNBakQV9RBCm9BW5a2pDVbbuwGDYAAWBR19sqm48CT')
+    await removePinFromIPFS(event.ipfs_pin_hash)
+    // setDeleted(true)
+    //  return deleted ? <Navigate to='/admin'/> : null
+}
   return(
+    !event ? null :
+
     <Admin>
       <div className={css(styles.wrapper)}>
         <div className={css(styles.eventContainer)}>
           <div>
-            <img className={css(styles.eventImage)} src={image} alt='event' height='100px' width='100px' />
+            <img className={css(styles.eventImage)} src={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`} alt='event' height='100px' width='100px' />
           </div>
           <div className={css(styles.eventDetails)}>
-            <h4 className={css(styles.title)}>Blockchain Conference</h4>
-            <p>17 Nov, 2021 10:00 AM</p>
+            <h4 className={css(styles.title)}>{event.metadata.keyvalues['title']}</h4>
+            <p>{event.metadata.keyvalues['dateTime']}</p>
             <div className={css(styles.details)}>
               <div>
                 <label className={css(styles.labelText)}>Attendees: <b>11</b></label>

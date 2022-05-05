@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {Row,  Col, Modal, Button, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
+import { loadStdlib } from '@reach-sh/stdlib';
+const stdlib = loadStdlib('ALGO');
 
 const styles = StyleSheet.create({
   title: {
@@ -31,11 +33,18 @@ export default function RSVPModal(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [numTicket, setNumTicket] = useState(0)
   const [eventId, setEventId] = useState("");
-  const [ticket, setTicket] = useState(0);
   const [fee, setFee] = useState(0)
   const [total, setTotal] = useState(0)
+
+  const [tokenID, SetTokenID] = useState(0)
+
+
+  const buyTicket = async () => {
+    const acc = await stdlib.getDefaultAccount();
+    await stdlib.transfer(acc, acc, numTicket, props.tokenId)
+  }
 
   return(
     <div >
@@ -46,12 +55,12 @@ export default function RSVPModal(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="text" placeholder="Event Id" autoFocus
-              value={eventId} onChange={(e) => setEventId(e.target.value)} />
+              <Form.Control type="text" placeholder={props.tokenId} autoFocus
+              value={props.tokenId} readOnly/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control type="number" placeholder="Number of Tickets" autoFocus
-                value={ticket} onChange={(e) => setTicket(e.target.value)}/>
+                value={numTicket} onChange={(e) => setNumTicket(e.target.value)}/>
             </Form.Group>
             <div className={css(styles.total)}>
               <span>Total</span>
@@ -63,7 +72,7 @@ export default function RSVPModal(props) {
           <Button variant="secondary" onClick={props.onHide}>
             Close
           </Button>
-          <Button className={css(styles.createBtn)} variant="primary" onClick={handleClose}>
+          <Button className={css(styles.createBtn)} variant="primary" onClick={buyTicket}>
             RSVP
           </Button>
         </Modal.Footer>

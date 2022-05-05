@@ -9,7 +9,7 @@ export default function AppNavigator() {
         <Routes>
           <Route exact path='/' element={<Home/>}></Route>
           <Route exact path='/admin' element={<Dashboard/>}></Route>
-          <Route exact path='/eventDetail' element={<EventDetail/>}></Route>
+          <Route exact path='/eventDetail/:eventId' element={<EventDetail/>}></Route>
         </Routes>
     </Router>
   )

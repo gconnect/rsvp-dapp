@@ -43,7 +43,7 @@ export default function EventCard(props) {
   return(
       <div>
         <Card style={{ width: '18rem' }} className={css(styles.card)}>
-          <Card.Img variant="top" src={props.image} />
+          <Card.Img variant="top" src={props.image} height= '200px' />
           <Card.Body>
             <p>{props.dateTime}</p>
             <Card.Title>{props.title}</Card.Title>
@@ -56,7 +56,7 @@ export default function EventCard(props) {
               <p>Fee: <span>{props.fee}</span></p>
             </Card.Text>
             <Button className={css(styles.tickerBtn)} variant="primary" onClick= {() => setRSVP(!rsvp)}>Get Ticket</Button>
-            <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
+            <RSVPModal show={rsvp} onHide={() => setRSVP(false)} tokenId = {props.tokenId}/>
           </Card.Body>
         </Card>
       </div>

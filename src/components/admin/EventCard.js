@@ -47,16 +47,16 @@ const styles = StyleSheet.create({
     }
   },
 })
-export default function EventCard() {
+export default function EventCard(props) {
   return(
     <div>
       <div className={css(styles.eventContainer)}>
           <div>
-            <img className={css(styles.eventImage)} src={image} alt='event' height='100px' width='100px' />
+            <img className={css(styles.eventImage)} src={props.image} alt='event' height='100px' width='100px' />
           </div>
           <div className={css(styles.eventDetails)}>
-            <h4 className={css(styles.title)}>Blockchain Conference</h4>
-            <p>17 Nov, 2021 10:00 AM</p>
+            <h4 className={css(styles.title)}>{props.title}</h4>
+            <p>{props.dateTime}</p>
               <label className={css(styles.labelText)}>Attendees: <b>11</b></label>
               <label className={css(styles.labelText)}>Checkins: <b>8</b></label>
         </div>

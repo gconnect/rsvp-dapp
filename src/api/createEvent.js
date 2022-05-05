@@ -13,12 +13,25 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
   data.append('file', image, image.name);
   //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
   //metadata is optional
+
   const acc = await stdlib.getDefaultAccount();
   const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0});
   await acc.tokenAccept(token.id);
   const tok = token.id['_hex']
   const tokenId = parseInt(tok, 16);
 
+  //Get the balance of the token
+  const tokenBal = await stdlib.balanceOf(acc, tokenId)
+  console.log(tokenBal)
+
+  //Transfer token
+  await stdlib.transfer(acc, acc, 5, tokenId)
+
+  //get wallet address
+  const address = stdlib.formatAddress(acc) 
+  console.log(address)
+
+    //Get account balance
   const metadata = JSON.stringify({
       name: 'Ticketing',
       keyvalues: {
