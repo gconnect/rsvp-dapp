@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { loadStdlib } from '@reach-sh/stdlib';
 import axios  from 'axios';
 const stdlib = loadStdlib('ALGO');
 const FormData = require('form-data');
 
 
-export const createTicketEvent = async (image, title, fee, venue, dateTime, description,totalTickets, tokenName, tokenSymbol, metahash ) => {
+export const createTicketEvent = async (image, title, fee, venue, dateTime, description,totalTickets, tokenName, tokenSymbol) => {
   const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
   //we gather a local file for this example, but any valid readStream source will work here.
@@ -13,10 +14,10 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
   //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
   //metadata is optional
   const acc = await stdlib.getDefaultAccount();
-  const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0, metadataHash: `${metahash}`});
-  const tokenId = parseInt(token._hex, 16);
-  console.log(` Token Id: ${tokenId}`)
-  console.log(`token ${token._hex.toString()}`)
+  const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0});
+  await acc.tokenAccept(token.id);
+  const tok = token.id['_hex']
+  const tokenId = parseInt(tok, 16);
 
   const metadata = JSON.stringify({
       name: 'Ticketing',
@@ -52,10 +53,26 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
       })
       .then(function (response) {
           //handle response here
-          console.log(response.data.ipfsHash)
+          const ipfsHash = response.data.IpfsHash
+          // console.log(response.data.IpfsHash)
+          console.log(response.data)
+          localStorage.setItem('ipfsHash', ipfsHash)
       })
       .catch(function (error) {
           //handle error here
           console.log(error)
       });
   } 
+
+  export const createToken = async (tokenName, tokenSymbol,totalTickets, hash) => {
+    const acc = await stdlib.getDefaultAccount();
+    const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0, metadataHash: hash});
+    await acc.tokenAccept(token.id);
+
+    const tok = token.id['_hex']
+    const tokenId = parseInt(tok, 16);
+    localStorage.setItem('tokenId', tokenId)
+    // console.log(token)
+    // console.log(token.id['_hex'])
+
+  }

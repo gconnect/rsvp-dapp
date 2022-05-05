@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
 import axios  from 'axios';
 import { ALGO_MyAlgoConnect as MyAlgoConnect, ALGO_WalletConnect as WalletConnect } from '@reach-sh/stdlib';
-import { createTicketEvent } from '../../../api/createEvent';
+import { createTicketEvent, createToken } from '../../../api/createEvent';
 const stdlib = loadStdlib('ALGO');
 stdlib.setWalletFallback(stdlib.walletFallback({
   providerEnv: 'TestNet', WalletConnect }));
@@ -43,98 +43,42 @@ export default function CreateEventModal(props) {
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
   const [totalTickets, setTotalTicket] = useState(0);
-
+  const [tokenId, setTokenId] = useState(0);
   const [tokenName, setToken] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
-  const [metahash, setMetaHash] = useState("")
+
+
+function bytesToFloatArray(bytes) {
+  return new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength/Float32Array.BYTES_PER_ELEMENT);
+}
 
   const pinFileToIPFS = async () => {
-    const postEvent = await createTicketEvent(image,title, fee, venue, dateTime,
-      description, totalTickets, tokenName, tokenSymbol, metahash)
-      console.log(postEvent)
-  }
-  
-  const  microalgosToAlgos = (microalgos ) => {
-    const INVALID_MICROALGOS_ERROR_MSG =
-    'Microalgos should be positive and less than 2^53 - 1.';
+      await createTicketEvent(image,title, fee, venue, dateTime,
+      description, totalTickets, tokenName, tokenSymbol)
 
-    if (microalgos < 0 || !Number.isSafeInteger(microalgos)) {
-        throw new Error(INVALID_MICROALGOS_ERROR_MSG);
-    }
+      // const metaHash = localStorage.getItem('ipfsHash')
+      // console.log(metaHash)
+      // const token = await createToken(tokenName, tokenSymbol, totalTickets, bytesToFloatArray(metaHash))
+      // console.log(token.id['_hex'])
   }
+
+  
     const fileHandler = (event) =>{
       setImage(event.target.files[0])
       console.log(image)
     }
 
-    const createToken = async ()=>{
-      const acc = await stdlib.getDefaultAccount();
-      const token = await stdlib.launchToken(acc, "MyToken2", "MT2", {supply: 10, decimals: 0, metadataHash: `${metahash}`});
-      const tokenId = parseInt(token._hex, 16);
-      console.log(` Token Id: ${tokenId}`)
-    }
     // const createToken = async ()=>{
     //   const acc = await stdlib.getDefaultAccount();
-    //   const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, {supply: microalgosToAlgos(totalTickets), metadataHash: `${metahash}`});
-    //   console.log(token.id)
+    //   const token = await stdlib.launchToken(acc, "MyToken4", "MT4", {supply: 1, decimals: 0});
+    //   await acc.tokenAccept(token.id);
+
+    //   console.log(token.id['_hex'])
+    //   const tok = token.id['_hex']
+    //   const tokenId = parseInt(tok, 16);
+    //   localStorage.setItem('tokenId', tokenId)
     // }
-
-  //   const pinFileToIPFS = async () => {
-  //     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
-  
-  //     //we gather a local file for this example, but any valid readStream source will work here.
-  //     let data = new FormData();
-  //     data.append('file', image, image.name);
-  //     //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
-  //     //metadata is optional
-  //     const acc = await stdlib.getDefaultAccount();
-  //     const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, {supply: totalTickets, metadataHash: `${metahash}`});
-  //     console.log(token.id)
-  //     console.log(metahash);
-
-  //     const metadata = JSON.stringify({
-  //         name: 'Ticketing',
-  //         keyvalues: {
-  //           title: title,
-  //           fee: fee,
-  //           venue: venue,
-  //           dateTime: dateTime,
-  //           description: description,
-  //           totalTickets: totalTickets,
-  //           token: token.id,
-  //           tokenName: tokenName,
-  //           tokenSymbol: tokenSymbol
-  //         }
-  //     });
-  //     data.append('pinataMetadata', metadata);
-      
-  //     //pinataOptions are optional
-  //     const pinataOptions = JSON.stringify({
-  //         cidVersion: 0,
-  //     });
-  //     data.append('pinataOptions', pinataOptions);
-      
-  //     return axios
-  //         .post(url, data, {
-  //             maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
-  //             // metadata,
-  //             headers: {
-  //                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-  //                 pinata_api_key: 'e0dc6bb0e514ac15eefd',
-  //                 pinata_secret_api_key: '37286b1cadff4ee4cc7d177a69b612c0c66905cf1456a688411102ebc9196f1c'
-  //             }
-  //         })
-  //         .then(function (response) {
-  //             //handle response here
-  //             setMetaHas(response.data.ipfsHash)
-  //             console.log(response.data.ipfsHash)
-  //             handleClose()
-  //         })
-  //         .catch(function (error) {
-  //             //handle error here
-  //             console.log(error)
-  //         });
-  //     }  
+   
   return(
     <div>
        <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered className={css(styles.modal)}>
@@ -190,9 +134,9 @@ export default function CreateEventModal(props) {
           <Button className={css(styles.createBtn)} variant="primary" onClick={pinFileToIPFS}>
             Create Event
           </Button>
-          <Button className={css(styles.createBtn)} variant="primary" onClick={createToken}>
+          {/* <Button className={css(styles.createBtn)} variant="primary" onClick={createToken}>
             Create Token
-          </Button>
+          </Button> */}
         </Modal.Footer>
       </Modal>
     </div>
