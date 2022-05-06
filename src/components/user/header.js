@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import ConnectWallet from '../connectWalletModal'
 import CreateEventModal from '../admin/modal/createEventModal'
+import { login } from '../../api/login'
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -52,21 +53,6 @@ const styles = StyleSheet.create({
 })
 export default function Header() {
   const [wallet, setWallet] = useState(false);
-  
-  const uauth = new UAuth({
-    // clientID: 'uauth_example_spa_id',
-    clientID: 'b9880354-ed6a-438c-b7d3-8b6b2a489db8',
-    redirectUri: 'https://rsvp-dapp.vercel.app/',
-  })
-
-const login = async () => {
-  try {
-    const authorization = await uauth.loginWithPopup() 
-    console.log(authorization)
-  } catch (error) {
-    console.error(error)
-  }
-}
 
   return(
     <div className={css(styles.wrapper)}>     

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import {Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import coverImage from '../../images/background.png'
@@ -6,7 +6,7 @@ import Header from './header'
 import { Link } from 'react-router-dom'
 import RSVPModal from './rsvpModal'
 import { loadStdlib } from '@reach-sh/stdlib';
-import { useEffect } from 'react';
+import { login } from '../../api/login'
 const stdlib = loadStdlib('ALGO');
 
 const styles = StyleSheet.create({
@@ -97,8 +97,8 @@ export default function Content() {
   }
   useEffect(() =>{
     tokenBal()
-
   })
+  
   return(
     <div className={css(styles.wrapper)}>
       <Header/>
@@ -106,7 +106,7 @@ export default function Content() {
         <h1 className={css(styles.title)}>Tech Event <br/>Ticketing</h1>
         <p className={css(styles.description)}>Decentralized ticketing app built with Reach <br/> deployed on Algorand</p>
         <div className={css(styles.btnContainer)}>
-          <Button className={css(styles.rsvpBtn)} onClick= {() => setRSVP(!rsvp)}>RSVP</Button>
+          <Button className={css(styles.rsvpBtn)} onClick= {login}>Login</Button>
           <Button className={css(styles.adminBtn)}><Link className={css(styles.adminItem)} to='/admin'>ORGANIZE</Link></Button>
           <RSVPModal show={rsvp} onHide={() => setRSVP(false)}/>
         </div>

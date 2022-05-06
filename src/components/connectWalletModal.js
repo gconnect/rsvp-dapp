@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
 
 export default function ConnectWallet(props) {
   const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // const account = useRef()
   // const balance = useRef()
 
@@ -78,10 +81,12 @@ export default function ConnectWallet(props) {
       // } catch (e) {
       //   console.error(e);
       // }
+      handleClose()
   }
 
   const walletConnect = async () => {  
       const acc = await stdlib.getDefaultAccount();
+      handleClose()
   }
 
   return(

@@ -38,12 +38,14 @@ export default function RSVPModal(props) {
 
     const buyTicket = async () => {
     const acc = await stdlib.getDefaultAccount();
-    console.log(acc)
     await acc.tokenAccept(props.tokenId);
     await acc.tokenAccepted
-    await stdlib.transfer(props.creatorAccount, acc.networkAccount.addr, numTicket, props.tokenId)
+    const accountAddress = await acc.networkAccount.addr
+    console.log(accountAddress)
+    // const accountAddress = acc.getAddress()
+    await stdlib.transfer(props.creatorAccount, accountAddress, numTicket, props.tokenId)
     const totalAmount = numTicket * props.fee
-    await stdlib.transfer(acc.networkAccount.addr, props.creatorAccount, totalAmount)
+    await stdlib.transfer(accountAddress, props.creatorAccount, totalAmount)
   }
 
   return(
