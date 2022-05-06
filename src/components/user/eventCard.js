@@ -3,7 +3,9 @@ import {Row, Container, Col, Card, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import icon from '../../images/background.png'
 import RSVPModal from './rsvpModal'
-
+import { loadStdlib } from '@reach-sh/stdlib';
+import { useEffect } from 'react';
+const stdlib = loadStdlib('ALGO');
 const styles = StyleSheet.create({
   upcoming: {
     marginLeft: '24px',
@@ -39,6 +41,25 @@ const styles = StyleSheet.create({
 
 export default function EventCard(props) {
   const [rsvp, setRSVP] = useState(false);
+  const [tickets, setTIckets] = useState(false)
+
+  // useState(() => {
+  //   const availableTicket = async () =>{
+  //     // const acc = await stdlib.getDefaultAccount();
+  //     const bal =  await stdlib.balanceOf(props.creatorAccount, props.tokenId)
+  //     setTIckets(bal)
+  //     console.log(bal)
+  //   }
+  //   availableTicket()
+  // }, [])
+
+  //Get the balance of the token
+  // const tokenBal = async () => {
+  //   await stdlib.balanceOf(props.creatorAccount,  props.tokenId)
+  //   console.log(tokenBal)
+  // }
+   
+
 
   return(
       <div>
@@ -54,6 +75,7 @@ export default function EventCard(props) {
             </div>
             <Card.Text>
               <p>Fee: <span>{props.fee}</span></p>
+              <p>Available Ticket: <span>{tickets}</span></p>
             </Card.Text>
             <Button className={css(styles.tickerBtn)} variant="primary" onClick= {() => setRSVP(!rsvp)}>Get Ticket</Button>
             <RSVPModal show={rsvp} onHide={() => setRSVP(false)} tokenId = {props.tokenId} creatorAccount={props.creatorAccount} fee= {props.fee}/>

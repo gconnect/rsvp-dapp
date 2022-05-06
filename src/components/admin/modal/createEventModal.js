@@ -54,8 +54,7 @@ function bytesToFloatArray(bytes) {
 }
 
   const pinFileToIPFS = async () => {
-      await createTicketEvent(image,title, fee, venue, dateTime,
-      description, totalTickets, tokenName, tokenSymbol)
+      await createTicketEvent(image,title, fee, venue, dateTime, description,totalTickets,tokenName)
 
       // const metaHash = localStorage.getItem('ipfsHash')
       // console.log(metaHash)

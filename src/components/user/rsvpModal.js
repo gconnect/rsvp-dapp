@@ -35,24 +35,16 @@ export default function RSVPModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [numTicket, setNumTicket] = useState(0)
-  const [eventId, setEventId] = useState("");
-  const [fee, setFee] = useState(0)
-  const [total, setTotal] = useState(0)
 
-  const [tokenID, SetTokenID] = useState(0)
-
-
-  const buyTicket = async () => {
+    const buyTicket = async () => {
     const acc = await stdlib.getDefaultAccount();
     console.log(acc)
     await acc.tokenAccept(props.tokenId);
     await acc.tokenAccepted
     await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)
+    const totalAmount = numTicket * props.fee
+    await stdlib.transfer(acc, props.creatorAccount, totalAmount)
   }
-  useEffect(() =>  {
-    setTotal(props.fee * numTicket)
-
-  }, [])
 
   return(
     <div >
@@ -68,12 +60,8 @@ export default function RSVPModal(props) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control type="number" placeholder="Number of Tickets" autoFocus
-                value={total} onChange={(e) => setNumTicket(e.target.value)}/>
+                value={numTicket} onChange={(e) => setNumTicket(e.target.value)}/>
             </Form.Group>
-            <div className={css(styles.total)}>
-              <span>Total</span>
-              <span>{total} Algo</span>
-            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>

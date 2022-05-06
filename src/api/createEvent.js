@@ -19,17 +19,9 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
   await acc.tokenAccept(token.id);
   const tok = token.id['_hex']
   const tokenId = parseInt(tok, 16);
-
-  //Get the balance of the token
-  const tokenBal = await stdlib.balanceOf(acc, tokenId)
-  console.log(tokenBal)
-
-  //Transfer token
-  await stdlib.transfer(acc, acc, 5, tokenId)
-
+  const address = acc.networkAccount.addr
   //get wallet address
-  const creatorAccount = stdlib.formatAddress(acc) 
-  console.log(creatorAccount)
+  console.log(address)
 
     //Get account balance
   const metadata = JSON.stringify({
@@ -43,8 +35,8 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
         totalTickets: totalTickets,
         token: tokenId,
         tokenName: tokenName,
-        tokenSymbol: tokenSymbol,
-        creatorAccount: creatorAccount
+        // tokenSymbol: tokenSymbol,
+        creatorAccount: address
       }
   });
   data.append('pinataMetadata', metadata);
