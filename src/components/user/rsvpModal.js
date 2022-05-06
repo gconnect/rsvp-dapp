@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Row,  Col, Modal, Button, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
+import { useEffect } from 'react';
 const stdlib = loadStdlib('ALGO');
 
 const styles = StyleSheet.create({
@@ -48,7 +49,10 @@ export default function RSVPModal(props) {
     await acc.tokenAccepted
     await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)
   }
-  setTotal(props.fee * numTicket)
+  useEffect(() =>  {
+    setTotal(props.fee * numTicket)
+
+  }, [])
 
   return(
     <div >

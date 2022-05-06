@@ -69,28 +69,26 @@ export default function EventDetail() {
   const [list, setList] = useState([])
   const [deleted, setDeleted] = (false)
 
-  const events = async () => {
-    const eventArray =  await EventList("Ticketing")
-    setList(eventArray)
-      console.log(eventArray)
-   }
-   events()
+  // const events = async () => {
+  //   const eventArray =  await EventList("Ticketing")
+  //   setList(eventArray)
+  //     console.log(eventArray)
+  //  }
+  //  events()
 
-   const { eventId } = useParams()
-   const event = list.find(item => item.id === eventId)
+
+  useEffect(() => {
+    const events = async () => {
+      const eventArray =  await EventList("Ticketing")
+      setList(eventArray)
+        console.log(eventArray)
+     }
+     events()
+  }, [])
+
+  const { eventId } = useParams()
+  const event = list.find(item => item.id === eventId)
   
-
-  // useEffect(() => {
-  //   // const events = async () => {
-  //   //   const eventArray =  await EventList("Ticketing")
-  //   //   setList(eventArray)
-  //   //     console.log(eventArray)
-  //   //  }
-  //    events()
-  // }, [])
-
-  
-  // console.log(`${event.id}`)
 
   // delete unpin item
   const deletePin = async () =>{
