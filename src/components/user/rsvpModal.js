@@ -46,8 +46,9 @@ export default function RSVPModal(props) {
     console.log(acc)
     await acc.tokenAccept(props.tokenId);
     await acc.tokenAccepted
-    await stdlib.transfer(acc, acc, numTicket, props.tokenId)
+    await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)
   }
+  setTotal(props.fee * numTicket)
 
   return(
     <div >
@@ -63,11 +64,11 @@ export default function RSVPModal(props) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control type="number" placeholder="Number of Tickets" autoFocus
-                value={numTicket} onChange={(e) => setNumTicket(e.target.value)}/>
+                value={total} onChange={(e) => setNumTicket(e.target.value)}/>
             </Form.Group>
             <div className={css(styles.total)}>
               <span>Total</span>
-              <span>5 Algo</span>
+              <span>{total} Algo</span>
             </div>
           </Form>
         </Modal.Body>

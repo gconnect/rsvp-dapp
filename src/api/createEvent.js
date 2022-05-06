@@ -28,8 +28,8 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
   await stdlib.transfer(acc, acc, 5, tokenId)
 
   //get wallet address
-  const address = stdlib.formatAddress(acc) 
-  console.log(address)
+  const creatorAccount = stdlib.formatAddress(acc) 
+  console.log(creatorAccount)
 
     //Get account balance
   const metadata = JSON.stringify({
@@ -43,7 +43,8 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
         totalTickets: totalTickets,
         token: tokenId,
         tokenName: tokenName,
-        tokenSymbol: tokenSymbol
+        tokenSymbol: tokenSymbol,
+        creatorAccount: creatorAccount
       }
   });
   data.append('pinataMetadata', metadata);

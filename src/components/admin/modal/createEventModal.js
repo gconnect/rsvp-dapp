@@ -46,6 +46,7 @@ export default function CreateEventModal(props) {
   const [tokenId, setTokenId] = useState(0);
   const [tokenName, setToken] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
+  const [creatorAddress, setCreatorAddress] = useState("")
 
 
 function bytesToFloatArray(bytes) {

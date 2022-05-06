@@ -59,6 +59,7 @@ export default function EventBanner() {
               venue={event.metadata.keyvalues['venue']} 
               fee={event.metadata.keyvalues['fee']} 
               tokenId={event.metadata.keyvalues['token']}
+              creatorAccount={event.metadata.keyvalues['creatorAccount']}
              />
           </Col>
         )}

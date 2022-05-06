@@ -56,7 +56,7 @@ export default function EventCard(props) {
               <p>Fee: <span>{props.fee}</span></p>
             </Card.Text>
             <Button className={css(styles.tickerBtn)} variant="primary" onClick= {() => setRSVP(!rsvp)}>Get Ticket</Button>
-            <RSVPModal show={rsvp} onHide={() => setRSVP(false)} tokenId = {props.tokenId}/>
+            <RSVPModal show={rsvp} onHide={() => setRSVP(false)} tokenId = {props.tokenId} creatorAccount={props.creatorAccount} fee= {props.fee}/>
           </Card.Body>
         </Card>
       </div>
