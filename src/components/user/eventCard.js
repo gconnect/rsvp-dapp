@@ -43,24 +43,25 @@ export default function EventCard(props) {
   const [rsvp, setRSVP] = useState(false);
   const [tickets, setTIckets] = useState(false)
 
-  // useState(() => {
-  //   const availableTicket = async () =>{
-  //     // const acc = await stdlib.getDefaultAccount();
-  //     const bal =  await stdlib.balanceOf(props.creatorAccount, props.tokenId)
-  //     setTIckets(bal)
-  //     console.log(bal)
-  //   }
-  //   availableTicket()
-  // }, [])
+  useState(() => {
+    const availableTicket = async () =>{
+      // const acc = await stdlib.getDefaultAccount();
+      const bal =  await stdlib.balanceOf(props.creatorAccount, props.tokenId)
+      const acctBal = bal._hex
+      const balance = parseInt(acctBal, 16)
+      setTIckets(balance)
+      console.log(balance)
+    }
+    availableTicket()
+  }, [])
 
   //Get the balance of the token
   // const tokenBal = async () => {
-  //   await stdlib.balanceOf(props.creatorAccount,  props.tokenId)
-  //   console.log(tokenBal)
+  //   const bal = await stdlib.balanceOf(props.creatorAccount,  props.tokenId)
+  //   console.log(bal)
   // }
+  // tokenBal()
    
-
-
   return(
       <div>
         <Card style={{ width: '18rem' }} className={css(styles.card)}>
