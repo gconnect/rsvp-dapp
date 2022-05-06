@@ -41,9 +41,9 @@ export default function RSVPModal(props) {
     console.log(acc)
     await acc.tokenAccept(props.tokenId);
     await acc.tokenAccepted
-    await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)
+    await stdlib.transfer(props.creatorAccount, acc.networkAccount.addr, numTicket, props.tokenId)
     const totalAmount = numTicket * props.fee
-    await stdlib.transfer(acc, props.creatorAccount, totalAmount)
+    await stdlib.transfer(acc.networkAccount.addr, props.creatorAccount, totalAmount)
   }
 
   return(
