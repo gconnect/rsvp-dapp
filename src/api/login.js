@@ -2,7 +2,7 @@ import UAuth from '@uauth/js'
 
 const uauth = new UAuth({
   // clientID: 'uauth_example_spa_id',
-  clientID: 'b9880354-ed6a-438c-b7d3-8b6b2a489db8',
+  clientID: '648a8a9f-1946-4561-9392-db945097e3f3',
   redirectUri: 'https://rsvp-dapp.vercel.app/admin',
 })
 
