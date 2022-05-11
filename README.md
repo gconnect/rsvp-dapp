@@ -6,6 +6,9 @@ RSVP DApp that allows you to purchase a ticket by staking Algos, and allowing yo
 To start the local server run  `npm start`
 Run `npm install` to install all required dependencies.
 
+# Login with Unstoppable
+Integration with login with unstoppable can be found here `src/api/login.js`
+
 # LICENSE 
 Distributed under the MIT License. See for more information LICENSE
 
