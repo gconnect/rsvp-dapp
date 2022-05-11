@@ -7,7 +7,7 @@ To start the local server run  `npm start`
 Run `npm install` to install all required dependencies.
 
 # Login with Unstoppable
-Integration with login with unstoppable can be found here `src/api/login.js`. To get your clientID follow this [guide](https://docs.unstoppabledomains.com/login-with-unstoppable/login-integration-guides/login-client-configuration/#rules-for-redirect-uris)
+Integration with login with unstoppable can be found here `src/api/login.js`. To get your clientID follow this [guide](https://docs.unstoppabledomains.com/login-with-unstoppable/login-integration-guides/login-client-configuration/#rules-for-redirect-uris).submission detail [here](https://github.com/gconnect/rsvp-dapp/blob/master/unstoppable-integration.md)
 
 # LICENSE 
 Distributed under the MIT License. See for more information LICENSE
