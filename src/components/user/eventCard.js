@@ -43,7 +43,7 @@ export default function EventCard(props) {
   const [rsvp, setRSVP] = useState(false);
   const [tickets, setTIckets] = useState(false)
 
-  useState(() => {
+  useEffect(() => {
     const availableTicket = async () =>{
       // const acc = await stdlib.getDefaultAccount();
       const bal =  await stdlib.balanceOf(props.creatorAccount, props.tokenId)

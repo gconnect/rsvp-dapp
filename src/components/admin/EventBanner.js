@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {Row, Col} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { EventItems } from '../admin/data/eventItems'
@@ -29,13 +29,20 @@ export default function EventBanner() {
     setList(eventArray)
       console.log(eventArray)
    }
-   events()
+
+   useEffect(() => {
+    events()
+   }, [])
+   
 
   return(
     <div>
         {list.map((event) =>
-          <a className={css(styles.eventDetails)} href={`/EventDetail/${event.id}`}>
-            <EventCard image ={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`} title={event.metadata.keyvalues['title']} dateTime={event.metadata.keyvalues['dateTime']} />
+          <a key={event.id} className={css(styles.eventDetails)} href={`/EventDetail/${event.id}`}>
+            <EventCard
+             image ={`https://ipfs.io/ipfs/${event.ipfs_pin_hash}`} 
+             title={event.metadata.keyvalues['title']} 
+             dateTime={event.metadata.keyvalues['dateTime']} />
           </a>
         )} 
     </div>

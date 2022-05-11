@@ -39,9 +39,14 @@ export default function EventBanner() {
   const events = async () => {
     const eventArray =  await EventList("Ticketing")
     setList(eventArray)
+    console.log('justin')
       console.log(eventArray)
    }
-   events()
+ 
+
+   useEffect(() => {
+     events()
+   }, [])
    
     return(
     <div id='events'>
@@ -49,9 +54,9 @@ export default function EventBanner() {
       <Form.Control className={css(styles.searchInput)} type="text" placeholder="search events" />
 
       <h3 className={css(styles.upcoming)}>Popular <span className={css(styles.event)}>Events</span></h3>
-      <Row className={css(styles.upcoming)} >
+      <Row className={css(styles.upcoming)}>
         { list.map((event) =>
-          <Col className={css(styles.events)}>
+          <Col className={css(styles.events)} key={event.id}>
             <EventCard 
               title={event.metadata.keyvalues['title']} 
               dateTime={event['date_pinned']} 

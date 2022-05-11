@@ -67,8 +67,11 @@ details: {
 export default function EventDetail() {
   const [modalShow, setModalShow] = useState(false);
   const [list, setList] = useState([])
-  const [deleted, setDeleted] = (false)
-
+  const [event, setEvent] = useState('')
+  const [eventID, setEventID] = useState('')
+  // const [deleted, setDeleted] = (false)
+  const { eventId } = useParams()
+  // setEventID(eventID)
   // const events = async () => {
   //   const eventArray =  await EventList("Ticketing")
   //   setList(eventArray)
@@ -76,18 +79,22 @@ export default function EventDetail() {
   //  }
   //  events()
 
+  const events = async () => {
+    const eventArray =  await EventList("Ticketing")
+    setList(eventArray)
+      console.log(eventArray)
+   }
+
 
   useEffect(() => {
-    const events = async () => {
-      const eventArray =  await EventList("Ticketing")
-      setList(eventArray)
-        console.log(eventArray)
-     }
+    
      events()
-  }, [])
 
-  const { eventId } = useParams()
-  const event = list.find(item => item.id === eventId)
+     
+  setEvent(list.find(item => item.id === eventId))
+  }, [list])
+
+  
   
 
   // delete unpin item
@@ -97,9 +104,8 @@ export default function EventDetail() {
     //  return deleted ? <Navigate to='/admin'/> : null
 }
   return(
-    !event ? null :
 
-    <Admin>
+    <Admin>{event ? 
       <div className={css(styles.wrapper)}>
         <div className={css(styles.eventContainer)}>
           <div>
@@ -123,7 +129,9 @@ export default function EventDetail() {
           <Button className={css(styles.downloadBtn)}>CSV</Button>
         </div>
         <AttendeeTable/>
-      </div>
+      </div> : <h3>No event found</h3>
+      }
     </Admin>
+  
   )
 }
