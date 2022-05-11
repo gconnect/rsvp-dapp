@@ -1,7 +1,7 @@
 import UAuth from '@uauth/js'
 
 const uauth = new UAuth({
-  clientID: processs.env.REACT_APP_UNSTOPPABLE_CLIENT_ID,
+  clientID: process.env.REACT_APP_UNSTOPPABLE_CLIENT_ID,
   redirectUri: 'https://rsvp-dapp.vercel.app/admin',
 })
 

@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "@uauth/js": "^1.1.0",
+    "@unstoppabledomains/resolution": "^7.1.4",
     "aphrodite": "^2.4.0",
     "axios": "^0.27.2",
     "react": "^18.0.0",
