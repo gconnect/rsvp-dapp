@@ -6,6 +6,7 @@ import RSVPModal from './rsvpModal'
 import { loadStdlib } from '@reach-sh/stdlib';
 import { useEffect } from 'react';
 const stdlib = loadStdlib('ALGO');
+
 const styles = StyleSheet.create({
   upcoming: {
     marginLeft: '24px',

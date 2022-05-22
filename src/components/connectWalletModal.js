@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {Row,  Col, Modal, Button, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
-import { ALGO_MyAlgoConnect as MyAlgoConnect, ALGO_WalletConnect as WalletConnect } from '@reach-sh/stdlib';
+import { ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
+// import {ALGO_WalletConnect as WalletConnect } from '@reach-sh/stdlib';
 const stdlib = loadStdlib('ALGO');
 stdlib.setWalletFallback(stdlib.walletFallback({
-  providerEnv: 'TestNet', WalletConnect }));
+  providerEnv: 'TestNet', MyAlgoConnect }));
 
 const styles = StyleSheet.create({
   title: {
@@ -33,61 +34,45 @@ export default function ConnectWallet(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const account = useRef()
-  // const balance = useRef()
+  const account = useRef()
+  const balance = useRef()
 
 
-  //   const [accountBal, setAccountBal] = useState(0);
-  //   const [accountAddress, setAccountAddress] = useState('');
+    const [accountBal, setAccountBal] = useState(0);
+    const [accountAddress, setAccountAddress] = useState('');
 
 
-  //   const connectWallet = async () =>{
-  //       try{
-  //           await getAccount()
-  //           await getBalance()
+    const connectWithMyAlgoWallet  = async () =>{
+        try{
+            await getAccount()
+            await getBalance()
                 
-  //       }catch(err){
-  //           console.log(err)
-  //       }
-  //   }
+        }catch(err){
+            console.log(err)
+        }
+    }
 
-  //   const getAccount = async () => {
-  //       try{
-  //          account.current = await reach.getDefaultAccount()
-  //           setAccountAddress(account.current.networkAccount.addr)
-  //           console.log("Account :" + account.current.networkAccount.addr)
-  //       }catch(err){
-  //           console.log(err)
-  //       }
-  //   }
+    const getAccount = async () => {
+        try{
+           account.current = await stdlib.getDefaultAccount()
+            setAccountAddress(account.current.networkAccount.addr)
+            console.log("Account :" + account.current.networkAccount.addr)
+        }catch(err){
+            console.log(err)
+        }
+    }
 
-  //   const getBalance = async () => {
-  //       try{
-  //             let rawBalance = await reach.balanceOf(account.current)
-  //               balance.current = reach.formatCurrency(rawBalance, 4)
-  //               setAccountBal(balance.current)
-  //           console.log("Balance :" + balance.current)
-  //       }catch(err){
-  //           console.log(err)
-  //       }
+    const getBalance = async () => {
+        try{
+              let rawBalance = await stdlib.balanceOf(account.current)
+                balance.current = stdlib.formatCurrency(rawBalance, 4)
+                setAccountBal(balance.current)
+            console.log("Balance :" + balance.current)
+        }catch(err){
+            console.log(err)
+        }
       
-  //   }
-  
-  const connectWithMyAlgo = async () => {
-      const acc = await stdlib.getDefaultAccount();
-      // try {
-      //   const faucet = await stdlib.getFaucet();
-      //   stdlib.transfer(faucet, acc, stdlib.parseCurrency(100));
-      // } catch (e) {
-      //   console.error(e);
-      // }
-      handleClose()
-  }
-
-  const walletConnect = async () => {  
-      const acc = await stdlib.getDefaultAccount();
-      handleClose()
-  }
+    }
 
   return(
     <div>
@@ -96,8 +81,8 @@ export default function ConnectWallet(props) {
           <Modal.Title className={css(styles.title)}>Connect Wallet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Button className={css(styles.connectBtn)} onClick={connectWithMyAlgo}>MyAlgo Wallet</Button>
-          <Button className={css(styles.connectBtn)} onClick={walletConnect}>Pera Wallet </Button>
+          <Button className={css(styles.connectBtn)} onClick={connectWithMyAlgoWallet}>MyAlgo Wallet</Button>
+          <Button className={css(styles.connectBtn)} onClick={connectWithMyAlgoWallet}>Pera Wallet </Button>
           <Button className={css(styles.connectBtn)}>MetaMask</Button>
         </Modal.Body>
       </Modal>

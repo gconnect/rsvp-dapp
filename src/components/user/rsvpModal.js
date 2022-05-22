@@ -36,16 +36,44 @@ export default function RSVPModal(props) {
   const handleShow = () => setShow(true);
   const [numTicket, setNumTicket] = useState(0)
 
+  const MICROALGOS_TO_ALGOS_RATIO = 1e6;
+  const INVALID_MICROALGOS_ERROR_MSG =
+  'Microalgos should be positive and less than 2^53 - 1.';
+
+  /**
+   * microalgosToAlgos converts microalgos to algos
+   * @param microalgos - number
+   * @returns number
+   */
+  const  microalgosToAlgos = (microalgos ) => {
+  if (microalgos < 0 || !Number.isSafeInteger(microalgos)) {
+      throw new Error(INVALID_MICROALGOS_ERROR_MSG);
+  }
+  return microalgos / MICROALGOS_TO_ALGOS_RATIO;
+  }
+
+  /**
+   * algosToMicroalgos converts algos to microalgos
+   * @param algos - number
+   * @returns number
+   */
+  const algosToMicroalgos = (algos) => {
+  const microalgos = algos * MICROALGOS_TO_ALGOS_RATIO;
+  return Math.round(microalgos);
+  }
+
     const buyTicket = async () => {
     const acc = await stdlib.getDefaultAccount();
-    await acc.tokenAccept(props.tokenId);
-    await acc.tokenAccepted
+    console.log(acc)
+    const acceptToken = await acc.tokenAccept(props.tokenId);
+    const tokenAccepted = await acc.tokenAccepted
     const accountAddress = await acc.networkAccount.addr
     console.log(accountAddress)
-    // const accountAddress = acc.getAddress()
-    await stdlib.transfer(props.creatorAccount, accountAddress, numTicket, props.tokenId)
-    const totalAmount = numTicket * props.fee
-    await stdlib.transfer(accountAddress, props.creatorAccount, totalAmount)
+    console.log(props.creatorAccount)
+    // const accountAddress = acc.getAddress()  //etherum network
+      const totalAmount = numTicket * props.fee
+      await stdlib.transfer(acc, props.creatorAccount, algosToMicroalgos(totalAmount)) 
+      await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)
   }
 
   return(

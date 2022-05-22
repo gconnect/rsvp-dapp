@@ -5,6 +5,7 @@ import EventCard from './eventCard'
 import { EventList } from '../../api/EventList'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import loadingGif from '../../images/loading.gif'
 
 const styles = StyleSheet.create({
   upcoming: {
@@ -30,30 +31,37 @@ const styles = StyleSheet.create({
   },
   eventRow: {
     marginRight: '0'
+  },
+  loading: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center'
   }
 })
 
 export default function EventBanner() {
  const [list, setList] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const events = async () => {
+    setLoading(true)
     const eventArray =  await EventList("Ticketing")
     setList(eventArray)
-    console.log('justin')
-      console.log(eventArray)
+    setLoading(false)
+    console.log(eventArray)
    }
  
-
    useEffect(() => {
      events()
    }, [])
    
     return(
     <div id='events'>
-      {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
+        {/* <input type='text' className={css(styles.searchInput)} placeholder='Search events'/> */}
       <Form.Control className={css(styles.searchInput)} type="text" placeholder="search events" />
-
       <h3 className={css(styles.upcoming)}>Popular <span className={css(styles.event)}>Events</span></h3>
+      {loading ? <img className={css(styles.loading)} src={loadingGif} height="300px" width="300px"/> : 
+
       <Row className={css(styles.upcoming)}>
         { list.map((event) =>
           <Col className={css(styles.events)} key={event.id}>
@@ -69,6 +77,7 @@ export default function EventBanner() {
           </Col>
         )}
       </Row>
+      }
     </div>
   )
 }

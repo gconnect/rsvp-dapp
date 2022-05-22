@@ -21,19 +21,26 @@ const stdlib = loadStdlib("ALGO");
       takePlatformFee: stdlib.parseCurrency(5),
       ready: () => {
         console.log('The contract is ready');
+        ctcPlatform.getInfo().then((info) => {
+          console.log(`The contract is deployed as = ${JSON.stringify(info)}`); });
         throw 42;
       }
     })
 
-  }catch(err){
-    console.log(err)
+  }catch(e){
+    if ( e !== 42) {
+      throw e;
+    }
   }
 
+  const ticket = await stdlib.launchToken(accOrganizer, "EventTicket", "ET")
+  // console.log(ticket.id['_hex'])
+  const reward =  await stdlib.launchToken(accOrganizer, "RewardTicket", "RT")
   // Event Organizer
   try {
     await ctcOrganizer.p.Organizer({
       ticket : ticket.id, 
-      deadline,
+      // deadline : 500,
       ticketFee: stdlib.parseCurrency(25),
       rewardToken: reward.id,
       ready: () => {
