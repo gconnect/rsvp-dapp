@@ -26,9 +26,7 @@ export const main = Reach.App(() => {
     reward: UInt,
     rewardToken: Token,
     amount : UInt,
-    isTicketSold: Fun([], Bool),
     ready: Fun([], Null),
-    payPlatformFee: UInt,
     ...shared
   });
 
@@ -65,49 +63,19 @@ export const main = Reach.App(() => {
     const deadline = declassify(interact.deadline);
     const rewardToken = declassify(interact.rewardToken)
     const reward = declassify(interact.reward)
+   
     const amount = declassify(interact.amount);
      assume(ticket != rewardToken);
-     const { name, symbol, url, metadata, supply, amt } = declassify(interact.tokenParams());
-     assume(4 * amt <= supply);
-     assume(4 * amt <= UInt.max);
+ 
   });
 
-  Organizer.publish(name, symbol, url, metadata, supply, amt);
-  require(4 * amt <= supply);
-  require(4 * amt <= UInt.max);
-
-  const md1 = {name, symbol, url, metadata, supply};
-  const tok1 = new Token(md1);
-  TokenEvent.tokenLaunch();
-
-  Organizer.interact.showToken(tok1, md1);
-  commit();
-
-  const doTransfer1 = (who, tokX) => {
-    transfer(2 * amt, tokX).to(who);
-    who.interact.didTransfer(true, amt);
-  };
-
-  Organizer.publish();
-  doTransfer1(Organizer, tok1);
-  commit();
-
-  Organizer.pay([[2*amt, tok1]]);  
-  tok1.burn(supply);
-  tok1.destroy();
-  commit()
-
   Organizer.publish(ticket, ticketFee, rewardToken, deadline, amount);
-  const tokens = array(Token, [ticket, rewardToken]);
-  require(ticket != rewardToken);
+  
 
   commit();
   Organizer.publish()
   Organizer.interact.ready();
-  commit()
-  // const TMPFee = payPlatformFee * ticketFee
-  // Organizer.pay(TMPFee);
-  // transfer(TMPFee).to(TicketMarketPlace)
+
 
   const deadlineBlock = relativeTime(deadline);
   const RSVPs = new Set();
