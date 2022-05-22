@@ -10,24 +10,27 @@ export const main = Reach.App(() => {
   const Organizer = Participant('Organizer', {
     ticket: Token,
     ticketFee: UInt,
-    ticketSold: Fun([], UInt),
+    // ticketSold: Fun([], UInt),
     deadline: UInt,
-    payPlatformFee: UInt,
+    reward: UInt,
+    rewardToken: Token,
+    // payPlatformFee: UInt,
     ready: Fun([], Null)
     // resellProfit: UInt
   });
 
   const RSVPier = API('RSVPier', {
-    setRSVP: Fun([], Bool),
+    isRSVP: Fun([], Bool),
     buyTicket: Fun([UInt], Null)
     // sellTicket: UInt
   });
 
-  // const Checkin = API('Checkin', {
-  //   setCheckin: Fun([Address], Bool),
-  //   isTime:  Fun([], Bool),
-  //   poapToken: Token
-  // });
+  const Checkin = API('CHK', {
+    isCheckin: Fun([Address], Bool),
+    isTime:  Fun([], Bool),
+    // acceptReward: Fun([UInt], Null)
+  });
+
 
   init();
 
@@ -43,29 +46,53 @@ export const main = Reach.App(() => {
     const ticketFee = declassify(interact.ticketFee);
     // const totalSold = declassify(interact.ticketSold);
     const deadline = declassify(interact.deadline);
-    const payPlatformFee = declassify(interact.payPlatformFee);
-    const ready = declassify(interact.ready);
+    const rewardToken = declassify(interact.rewardToken)
+    const reward = declassify(interact.reward)
+    // const payPlatformFee = declassify(interact.payPlatformFee);
   });
-  Organizer.publish(ticket,ticketFee, deadline, payPlatformFee);
-  Organizer.interact.ready();
+  Organizer.publish(ticket, ticketFee, deadline, rewardToken, reward);
   commit();
-
+  Organizer.publish()
+  Organizer.interact.ready();
   // Organizer.pay(payPlatformFee);
   // transfer(payPlatformFee).to(TicketMarketPlace)
 
-  RSVPier.only(() => {
-    const setRSVP = declassify(interact.setRSVP()); 
-    const buyTicket = declassify(interact.buyTicket(ticketFee));
-  });
-  RSVPier.publish(setRSVP, buyTicket);
-  commit();
 
-  // Checkin.only(() => {
-  //   const [setCheckin, isTime, poapToken] = declassify([interact.setCheckin, declassify.isTime, declassify.poapToken])
-  // })
-  // Checkin.publish(setCheckin,isTime,poapToken)
-  // Checkin.publish()
+  const deadlineBlock = relativeTime(deadline);
+  const RSVPs = new Set();
 
-  // const RSVPs = set();
+  const [ rsvpied, howMany ] =
+    parallelReduce([true, 0])
+    .invariant(balance(ticket) == howMany * ticketFee)
+    .invariant(RSVPs.Map.size() == howMany)
+    .while( rsvpied )
+    .api_(RSVPier.isRSVP, () => {
+      check( ! RSVPs.member(this), "You have not rsvpied" );
+      return [ ticketFee, (k) => {
+        k(true);
+        transfer(ticketFee * howMany).to(Organizer)
+        RSVPs.insert(this);
+        return [ rsvpied, howMany + 1 ];
+      }];
+    })
+    .api_(Checkin.isCheckin, (who) => {
+      check( this == Organizer, "you are the organizer");
+      check( RSVPs.member(who), "yep" );
+      return [ 0, (k) => {
+        k(true);
+        transfer(reward).to(who);
+        RSVPs.remove(who);
+        return [ rsvpied, howMany - 1 ];
+      }];
+    })
+    .timeout( deadlineBlock, () => {
+      const [ [], k ] = call(Checkin.isTime);
+      k(true);
+      return [ false, howMany ]
+    });
+    const leftovers = howMany;
+    transfer(leftovers * reward).to(Organizer);
+    commit();
+    exit();
 
 });
