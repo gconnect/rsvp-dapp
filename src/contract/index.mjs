@@ -22,7 +22,7 @@ const stdlib = loadStdlib("ALGO");
       ready: () => {
         console.log('The contract is ready');
         ctcPlatform.getInfo().then((info) => {
-          console.log(`The contract is deployed as = ${JSON.stringify(info)}`); });
+          console.log(`The Platform contract is deployed as = ${JSON.stringify(info)}`); });
         throw 42;
       }
     })
@@ -32,19 +32,21 @@ const stdlib = loadStdlib("ALGO");
       throw e;
     }
   }
-
+  
+  // Event Organizer
   const ticket = await stdlib.launchToken(accOrganizer, "EventTicket", "ET")
   // console.log(ticket.id['_hex'])
   const reward =  await stdlib.launchToken(accOrganizer, "RewardTicket", "RT")
-  // Event Organizer
   try {
     await ctcOrganizer.p.Organizer({
       ticket : ticket.id, 
-      // deadline : 500,
+      deadline : 500,
       ticketFee: stdlib.parseCurrency(25),
       rewardToken: reward.id,
       ready: () => {
         console.log('The contract is ready');
+        ctcOrganizer.getInfo().then((info) => {
+        console.log(`The organizer contract is deployed as = ${JSON.stringify(info)}`); });
         throw 42;
       }
     });
@@ -57,7 +59,7 @@ const stdlib = loadStdlib("ALGO");
   //Create 3 test accounts
   const accounts = await stdlib.newTestAccounts(3, startingbalance);
 
-  //Get the contract information
+  // //Get the contract information
   const ctcWho = (whoi) =>
   accounts[whoi].contract(backend, ctcOrganizer.getInfo());
 
@@ -66,7 +68,7 @@ const stdlib = loadStdlib("ALGO");
     const who = accounts[whoi];
     const ctc = ctcWho(whoi);
     console.log('RSVP of', stdlib.formatAddress(who));
-    await ctc.apis.RSVPier.isRSVP(); 
+    await ctc.apis.RSVPier.isRSVP(who); 
     await ctc.api.RSVPier.buyTicket(numberOfTicket )
   };
 

@@ -1,17 +1,6 @@
 "reach 0.1";
 
 export const main = Reach.App(() => {
-  const  getParams = Fun([], Object({
-    name: Bytes(32), symbol: Bytes(8),
-    url: Bytes(96), metadata: Bytes(32),
-    supply: UInt,
-    amt: UInt,
-  }));
-
-  const shared = {
-    showToken: Fun(true, Null),
-    didTransfer: Fun([Bool, UInt], Null),
-  };
 
   const TicketMarketPlace = Participant('Platform', {
     takePlatformFee: UInt,
@@ -19,19 +8,17 @@ export const main = Reach.App(() => {
   });
 
   const Organizer = Participant('Organizer', {
-    tokenParams: getParams,
     ticket: Token,
     ticketFee: UInt,
     deadline: UInt,
-    reward: UInt,
+    transferReward: Fun([Bool, UInt], Null),
     rewardToken: Token,
-    amount : UInt,
     ready: Fun([], Null),
-    ...shared
+    amt : UInt
   });
 
   const RSVPier = API('RSVPier', {
-    isRSVP: Fun([], Bool),
+    isRSVP: Fun([Address], Bool),
     buyTicket: Fun([UInt], Null)
   });
 
@@ -42,11 +29,8 @@ export const main = Reach.App(() => {
 
   const ViewBalance = View('Bals', {
     ticket: UInt,
-    rewardToken: UInt,
-    currentTok: Token,
+    rewardToken: UInt
   });
-
-  const TokenEvent = Events({ tokenLaunch: [] });
 
   init();
 
@@ -56,53 +40,53 @@ export const main = Reach.App(() => {
   TicketMarketPlace.publish(platformFee);
   TicketMarketPlace.interact.ready();
   commit();
-  
+
   Organizer.only(() => {
     const ticket = declassify(interact.ticket);
     const ticketFee = declassify(interact.ticketFee);
     const deadline = declassify(interact.deadline);
     const rewardToken = declassify(interact.rewardToken)
-    const reward = declassify(interact.reward)
-   
-    const amount = declassify(interact.amount);
-     assume(ticket != rewardToken);
- 
+    const amt = declassify(interact.amt)
+
+    assume(ticket != rewardToken);
+    assume(amt <= UInt.max);
+
   });
-
-  Organizer.publish(ticket, ticketFee, rewardToken, deadline, amount);
-  
-
-  commit();
-  Organizer.publish()
+  Organizer.publish(ticket, ticketFee, rewardToken, deadline, amt);
   Organizer.interact.ready();
+  commit();
 
+  Organizer.publish();
 
   const deadlineBlock = relativeTime(deadline);
   const RSVPs = new Set();
 
-  const [ rsvpied, howMany ] =
+  const [ keepGoing, howMany ] =
     parallelReduce([true, 0])
+    .define(() => {
+      ViewBalance.ticket.set(balance(ticket));
+      ViewBalance.rewardToken.set(balance(rewardToken));
+    })
     .invariant(balance() == howMany * ticketFee)
     .invariant(RSVPs.Map.size() == howMany)
-    .while( rsvpied )
-    .api_(RSVPier.isRSVP, () => {
-      check( ! RSVPs.member(this), "You have not rsvpied" );
+    .while( keepGoing )
+    .api_(RSVPier.isRSVP, (who) => {
+      check( ! RSVPs.member(this), "not yet rsvpied" );
       return [ ticketFee, (k) => {
         k(true);
-        // transfer(ticketFee * howMany).to(Organizer)
-        transfer(ticketFee).to(Organizer)
+        transfer( amt, ticket).to(who);
         RSVPs.insert(this);
-        return [ rsvpied, howMany + 1 ];
+        return [ keepGoing, howMany + 1 ];
       }];
     })
     .api_(Checkin.isCheckin, (who) => {
-      check( this == Organizer, "you are the organizer");
+      check( this == Organizer, "you are the Organizer");
       check( RSVPs.member(who), "yeah" );
       return [ 0, (k) => {
         k(true);
-        transfer(ticketFee).to(who);
+        transfer( amt, rewardToken).to(who);
         RSVPs.remove(who);
-        return [ rsvpied, howMany - 1 ];
+        return [ keepGoing, howMany - 1 ];
       }];
     })
     .timeout( deadlineBlock, () => {
@@ -110,9 +94,12 @@ export const main = Reach.App(() => {
       k(true);
       return [ false, howMany ]
     });
-    const leftovers = howMany;
-    transfer(leftovers * ticketFee).to(Organizer);
-    commit();
-    exit();
+
+  const leftovers = howMany;
+  transfer(leftovers * ticketFee).to(Organizer);
+  transfer(balance(ticket), ticket).to(Organizer);
+  transfer(balance(rewardToken), rewardToken).to(Organizer);
+  commit();
+  exit();
 
 });
