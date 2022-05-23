@@ -1,7 +1,11 @@
 # RSVP TICKETING DAPP BUILT WITH REACH DEPLOYED ON ALGORAND
-RSVP Dapp built with Reach
-RSVP DApp that allows you to purchase a ticket by staking Algos, and allowing you to withdraw them after you attend, and have been verified by the admin.
+The RSVP Ticketing DApp that allows you to purchase a ticket by paying some Algos and in return receives a non-network token which can be resold, and allowing you to get rewarded with a non-network token after you attend, and have been verified by the organizer. The platform owner also benefits from every ticket sold by the organizer he get's a certain percentage.
 
+# Features of the RSVP Ticketing dApp
+- Platform makes profit from sale of ticket
+- Organizer sells ticket to attendee at a fee
+- Attendee RSVP for the event and pays the event fee
+- Organizer checkin attendees that attends the events and reward checkin attendees with a reward token
 
 # Live Demo
 Here is a [demo link](https://rsvp-dapp.vercel.app/) to the deployed Application on vercel. Figma design [link](https://www.figma.com/file/PlznxkNi3S58s1HUGRzrbj/rsvp-ticketing?node-id=10%3A419)
@@ -12,6 +16,11 @@ To test the code
 - Do `npm install` this will install all required dependencies. (If you encounter any issue after doing this you can delete the node module folder and do npm install again)
 - run `npm start` to start the local server at localhost:3000
 
+# Test Smart Contract Code
+- Ensure you have docker installed and running
+- Navigate to th contract folder. `/src/contract`
+- run `./reach run`
+
 # Setup Requirements
 - Install [make](https://en.wikipedia.org/wiki/Make_(software)), [Docker](https://www.docker.com/get-started/) and [Docker Compose](https://docs.docker.com/compose/install/)
 - [Vs Code](https://code.visualstudio.com/) or any IDE of your choice
@@ -21,10 +30,12 @@ To test the code
 - Install Reach and Reach Standard Library
 - More detailed Reach specific setup instruction can be found [here](https://docs.reach.sh/tut/rps/#tut-1)
 
-# Test Smart Contract Code
-- Ensure you have docker installed and running
-- Navigate to th contract folder. `/src/contract`
-- run `./reach run`
+# Future Feature Plans
+- Improve on the UI
+- Improve on the frontend code
+- Optimise the smart contract code
+- Implement reselling ( This will enable reselling of already purchased ticket to be sold in the secondary market )
+- Platform and event organizer profit profit from resale of ticket
 
 # Blog and Video Demo
 For more details you can checkout the blog post [here](https://medium.com/@agatevureglory/my-experience-developing-decentralised-app-with-reach-b96cd59b0f0f) . And here is the link to the youtube [demo](https://youtu.be/tAfJ3clA2kU)
