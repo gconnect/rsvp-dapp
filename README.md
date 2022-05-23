@@ -34,6 +34,8 @@ To test the code
 - Improve on the UI
 - Improve on the frontend code
 - Optimise the smart contract code
+- Enable contract to contract interaction
+- Platform owner receives percentage from sale of every ticket
 - Implement reselling ( This will enable reselling of already purchased ticket to be sold in the secondary market )
 - Platform and event organizer profit profit from resale of ticket
 
