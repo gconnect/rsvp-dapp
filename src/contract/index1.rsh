@@ -16,16 +16,6 @@
 // Event attendee or rsvp pays a fee to attend an event and receives a 
 //non network reward token after attending the event/checkin
 
-const shared = {
-  didTransfer: Fun([Bool, UInt], Null),
-}
-const getToken = Fun([], Object({
-  name: Bytes(32), symbol: Bytes(8),
-  url: Bytes(96), metadata: Bytes(32),
-  supply: UInt,
-  amt: UInt,
-}))
-
 export const main = Reach.App(() => {
   const TicketMarketPlace = Participant('Platform', {
     takePlatformFee: UInt,
@@ -33,7 +23,6 @@ export const main = Reach.App(() => {
   });
 
   const Organizer = Participant('Organizer', {
-    getParams: getToken,
     ticket: Token,
     ticketFee: UInt,
     deadline: UInt,
@@ -41,16 +30,12 @@ export const main = Reach.App(() => {
     rewardToken: Token,
     ready: Fun([], Null),
     amt : UInt,
-    checkBal: Fun(true, Null),
-    ...shared,
+    checkBal: Fun(true, Null)
   });
 
   const RSVPier = API('RSVPier', {
     isRSVP: Fun([Address], Bool),
-    buyTicket: Fun([UInt], Null),
-    acceptTicket: Fun([UInt], Null),
-    acceptReward: Fun([UInt], Null),
-    ...shared
+    buyTicket: Fun([UInt], Null)
   });
 
   const Checkin = API('CHK', {
@@ -62,6 +47,8 @@ export const main = Reach.App(() => {
     ticket: UInt,
     rewardToken: UInt
   });
+  setOptions({verifyPerConnector: true})
+
   init();
 
   TicketMarketPlace.only(() => {
@@ -76,29 +63,17 @@ export const main = Reach.App(() => {
     const ticketFee = declassify(interact.ticketFee);
     const deadline = declassify(interact.deadline);
     const rewardToken = declassify(interact.rewardToken)
-    const amt2 = declassify(interact.amt)
-    const { name, symbol, url, metadata, supply, amt } = declassify(interact.getParams());
+    const amt = declassify(interact.amt)
 
     assume(ticket != rewardToken);
     assume(amt <= UInt.max);
-    assume(amt <= supply);
-    assume(amt <= UInt.max);
 
   });
-  Organizer.publish(ticket, ticketFee, rewardToken, deadline, amt2, name, symbol, url, metadata, supply, amt);
+  Organizer.publish(ticket, ticketFee, rewardToken, deadline, amt).pay([[amt, ticket]]);
   Organizer.interact.ready();
-  require(amt <= supply);
-  require(amt <= UInt.max);
-
   commit();
+
   Organizer.publish();
-
-  // const md1 = {name, symbol, url, metadata, supply};
-  // const ticketToken = new Token(md1);
-
-  // const reward = {name, symbol, url, metadata, supply};
-  // const participationReward = new Token(reward);
-  // commit()
 
   const chkBal = (i) => {
     Organizer.interact.checkBal(i, balance(ticket), balance(rewardToken));
@@ -109,15 +84,17 @@ export const main = Reach.App(() => {
 
   const [ keepGoing, howMany ] =
     parallelReduce([true, 0])
+    .define(() => {
+      ViewBalance.ticket.set(balance(ticket));
+      ViewBalance.rewardToken.set(balance(rewardToken));
+    })
     .invariant(balance(ticket) == howMany * ticketFee && RSVPs.Map.size() == howMany)
     .while( keepGoing )
     .api_(RSVPier.isRSVP, (who) => {
       check( ! RSVPs.member(this), "not yet rsvpied" );
-      return [ ticketFee,  (k) => {   
+      return [ ticketFee, (k) => {   
         k(true);
-        // call(RSVPier.acceptTicket);
-        // Organizer.pay(acceptTicket);
-        // transfer( amt2).to(who);
+        transfer( amt, ticket).to(who);
         RSVPs.insert(this);
         return [keepGoing, howMany + 1 ];
       }];
@@ -127,7 +104,7 @@ export const main = Reach.App(() => {
       check( RSVPs.member(who), "yeah" );
       return [ 0, (k) => {
         k(true);
-        transfer( amt2, rewardToken).to(who);
+        transfer( amt, rewardToken).to(who);
         RSVPs.remove(who);
         return [ keepGoing, howMany - 1 ];
       }];
@@ -140,13 +117,8 @@ export const main = Reach.App(() => {
 
   const leftovers = howMany;
   transfer(leftovers * ticketFee).to(Organizer);
-  // transfer(balance(ticketToken), ticketToken).to(Organizer);
-  // transfer(balance(participationReward), participationReward).to(Organizer);
-
-  // ticketToken.burn(supply);
-  // ticketToken.destroy();
-  // participationReward.burn();
-  // participationReward.destroy();
+  transfer(balance(ticket), ticket).to(Organizer);
+  transfer(balance(rewardToken), rewardToken).to(Organizer);
   commit();
   exit();
 

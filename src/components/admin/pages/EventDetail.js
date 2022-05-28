@@ -8,6 +8,7 @@ import { removePinFromIPFS } from '../../../api/deletePinData'
 import { useParams, Navigate } from 'react-router-dom'
 import { EventList } from '../../../api/EventList'
 import { useEffect } from 'react'
+import loadingGif from '../../../images/loading.gif'
 
 const styles = StyleSheet.create({
 eventImage: {
@@ -61,6 +62,11 @@ delete: {
 details: {
   display: 'flex',
   justifyContent: 'space-between'
+},
+loading: {
+  display: 'flex',
+  justifyContent: 'center',
+  alignContent: 'center'
 }
 })
 
@@ -69,6 +75,8 @@ export default function EventDetail() {
   const [list, setList] = useState([])
   const [event, setEvent] = useState('')
   const [eventID, setEventID] = useState('')
+  const [loading, setLoading] = useState(false)
+
   // const [deleted, setDeleted] = (false)
   const { eventId } = useParams()
   // setEventID(eventID)
@@ -80,8 +88,10 @@ export default function EventDetail() {
   //  events()
 
   const events = async () => {
+    setLoading(true)
     const eventArray =  await EventList("Ticketing")
     setList(eventArray)
+    setLoading(false)
       console.log(eventArray)
    }
 
@@ -94,8 +104,6 @@ export default function EventDetail() {
   setEvent(list.find(item => item.id === eventId))
   }, [list])
 
-  
-  
 
   // delete unpin item
   const deletePin = async () =>{
@@ -105,7 +113,9 @@ export default function EventDetail() {
 }
   return(
 
-    <Admin>{event ? 
+    <Admin>
+  {/* {loading ? <img className={css(styles.loading)} src={loadingGif} height="300px" width="300px"/> :  */}
+    {event ?
       <div className={css(styles.wrapper)}>
         <div className={css(styles.eventContainer)}>
           <div>
@@ -129,8 +139,7 @@ export default function EventDetail() {
           <Button className={css(styles.downloadBtn)}>CSV</Button>
         </div>
         <AttendeeTable/>
-      </div> : <h3>No event found</h3>
-      }
+      </div> : <img className={css(styles.loading)} src={loadingGif} height="300px" width="300px"/>  }
     </Admin>
   
   )

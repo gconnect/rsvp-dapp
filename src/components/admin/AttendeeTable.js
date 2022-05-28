@@ -3,8 +3,8 @@ import {Table, Col, Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { AttendeeDetailItem } from './data/attendeeDetailItem'
 import CheckinModal from '../admin/modal/CheckinModal'
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
   table: {
     '@media (max-width: 575px)': {
       fontSize: '12px'
