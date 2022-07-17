@@ -51,7 +51,7 @@ Submission detail [here](https://github.com/gconnect/rsvp-dapp/blob/master/ipfs-
 
 
 # LICENSE 
-Distributed under the MIT License. See for more information LICENSE
+Distributed under the MIT License. See for more information [LICENSE](https://github.com/gconnect/rsvp-dapp/blob/master/LICENSE)
 
 #Disclaimer
 This project is not audited and should not be used in a production environment.
