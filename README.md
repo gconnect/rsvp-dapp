@@ -39,9 +39,6 @@ To test the code
 - Implement reselling ( This will enable reselling of already purchased ticket to be sold in the secondary market )
 - Platform and event organizer profit profit from resale of ticket
 
-# Blog and Video Demo
-For more details you can checkout the blog post [here](https://medium.com/@agatevureglory/my-experience-developing-decentralised-app-with-reach-b96cd59b0f0f) . And here is the link to the youtube [demo](https://youtu.be/tAfJ3clA2kU)
-
 # Login with Unstoppable
 Integration with login with unstoppable can be found here `src/api/login.js`. To get your clientID follow this [guide](https://docs.unstoppabledomains.com/login-with-unstoppable/login-integration-guides/login-client-configuration/#rules-for-redirect-uris). Submission detail [here](https://github.com/gconnect/rsvp-dapp/blob/master/unstoppable-integration.md)
 

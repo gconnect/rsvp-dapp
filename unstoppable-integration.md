@@ -1,5 +1,5 @@
 # Project name 
-RSVP DAPP
+RSVP Ticketing DAPP
 
 # Link to working code in a public repo OR PR link to a public repo
 [Link to Unstoppable Integration](https://github.com/gconnect/rsvp-dapp/blob/master/src/api/login.js)
