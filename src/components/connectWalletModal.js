@@ -32,25 +32,30 @@ export default function ConnectWallet(props) {
   const account = useRef()
   const balance = useRef()
 
-  const connectWithMyAlgoWallet  = async () =>{
-      try{
-          await getAccount()
-          await getBalance()
-              
-      }catch(err){
-          console.log(err)
-      }
-  }
 
-  const getAccount = async () => {
-      try{
-          account.current = await stdlib.getDefaultAccount()
-          setAccountAddress(account.current.networkAccount.addr)
-          console.log("Account :" + account.current.networkAccount.addr)
-      }catch(err){
-          console.log(err)
-      }
-  }
+    const [accountBal, setAccountBal] = useState(0);
+    const [accountAddress, setAccountAddress] = useState('');
+
+
+    const connectWithMyAlgoWallet  = async () =>{
+        try{
+            await getAccount()
+            await getBalance()
+                
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const getAccount = async () => {
+        try{
+           account.current = await stdlib.getDefaultAccount()
+            setAccountAddress(account.current.networkAccount.addr)
+            console.log("Account :" + account.current.networkAccount.addr)
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     const getBalance = async () => {
         try{
