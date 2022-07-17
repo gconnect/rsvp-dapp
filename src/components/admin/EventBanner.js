@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react'
-import {Row, Col} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import { EventItems } from '../admin/data/eventItems'
 import EventCard from '../admin/EventCard'
-import Admin from './pages/admin'
-import Dashboard from './pages/dashboard'
-import EventDetail from './pages/EventDetail'
 import { EventList } from '../../api/EventList'
 import loadingGif from '../../images/loading.gif'
 

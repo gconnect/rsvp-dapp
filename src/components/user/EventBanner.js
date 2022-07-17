@@ -1,6 +1,5 @@
-import {Row,  Col, Form, Button} from 'react-bootstrap'
+import { Row,  Col, Form } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import {EventItems} from '../user/data/eventItems'
 import EventCard from './eventCard'
 import { EventList } from '../../api/EventList'
 import { useEffect } from 'react'

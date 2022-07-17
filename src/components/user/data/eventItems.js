@@ -1,4 +1,3 @@
-
 export const EventItems = [
   {
     dateTime : '17 Nov, 2021 10:00 AM',

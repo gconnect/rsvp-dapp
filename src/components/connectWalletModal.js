@@ -1,9 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react'
-import {Row,  Col, Modal, Button, Form} from 'react-bootstrap'
+import React, { useState, useRef } from 'react'
+import { Modal, Button } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
 import { ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
-// import {ALGO_WalletConnect as WalletConnect } from '@reach-sh/stdlib';
 const stdlib = loadStdlib('ALGO');
 stdlib.setWalletFallback(stdlib.walletFallback({
   providerEnv: 'TestNet', MyAlgoConnect }));
@@ -30,37 +29,28 @@ const styles = StyleSheet.create({
 })
 
 export default function ConnectWallet(props) {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const account = useRef()
   const balance = useRef()
 
+  const connectWithMyAlgoWallet  = async () =>{
+      try{
+          await getAccount()
+          await getBalance()
+              
+      }catch(err){
+          console.log(err)
+      }
+  }
 
-    const [accountBal, setAccountBal] = useState(0);
-    const [accountAddress, setAccountAddress] = useState('');
-
-
-    const connectWithMyAlgoWallet  = async () =>{
-        try{
-            await getAccount()
-            await getBalance()
-                
-        }catch(err){
-            console.log(err)
-        }
-    }
-
-    const getAccount = async () => {
-        try{
-           account.current = await stdlib.getDefaultAccount()
-            setAccountAddress(account.current.networkAccount.addr)
-            console.log("Account :" + account.current.networkAccount.addr)
-        }catch(err){
-            console.log(err)
-        }
-    }
+  const getAccount = async () => {
+      try{
+          account.current = await stdlib.getDefaultAccount()
+          setAccountAddress(account.current.networkAccount.addr)
+          console.log("Account :" + account.current.networkAccount.addr)
+      }catch(err){
+          console.log(err)
+      }
+  }
 
     const getBalance = async () => {
         try{

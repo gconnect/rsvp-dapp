@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import {Row,  Col, Modal, Button, Form} from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
-import { useEffect } from 'react';
 const stdlib = loadStdlib('ALGO');
 
 const styles = StyleSheet.create({
@@ -30,10 +29,6 @@ const styles = StyleSheet.create({
 })
 
 export default function RSVPModal(props) {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [numTicket, setNumTicket] = useState(0)
 
   const MICROALGOS_TO_ALGOS_RATIO = 1e6;
@@ -70,7 +65,6 @@ export default function RSVPModal(props) {
     const accountAddress = await acc.networkAccount.addr
     console.log(accountAddress)
     console.log(props.creatorAccount)
-    // const accountAddress = acc.getAddress()  //etherum network
       const totalAmount = numTicket * props.fee
       await stdlib.transfer(acc, props.creatorAccount, algosToMicroalgos(totalAmount)) 
       await stdlib.transfer(props.creatorAccount, acc, numTicket, props.tokenId)

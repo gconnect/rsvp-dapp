@@ -47,6 +47,8 @@ export const main = Reach.App(() => {
 
   const RSVPier = API('RSVPier', {
     isRSVP: Fun([Address], Bool),
+    isRSVP1: Fun([Address], Null),
+    payMe:  Fun([], Null),
     buyTicket: Fun([UInt], Null),
     acceptTicket: Fun([UInt], Null),
     acceptReward: Fun([UInt], Null),
@@ -93,11 +95,11 @@ export const main = Reach.App(() => {
   commit();
   Organizer.publish();
 
-  // const md1 = {name, symbol, url, metadata, supply};
-  // const ticketToken = new Token(md1);
+  const md1 = {name, symbol, url, metadata, supply};
+  const ticketToken = new Token(md1);
 
-  // const reward = {name, symbol, url, metadata, supply};
-  // const participationReward = new Token(reward);
+  const reward = {name, symbol, url, metadata, supply};
+  const participationReward = new Token(reward);
   // commit()
 
   const chkBal = (i) => {
@@ -109,16 +111,13 @@ export const main = Reach.App(() => {
 
   const [ keepGoing, howMany ] =
     parallelReduce([true, 0])
-    .invariant(balance(ticket) == howMany * ticketFee && RSVPs.Map.size() == howMany)
-    .while( keepGoing )
+    .invariant(balance(ticketToken) == amt && balance(participationReward) == amt)
+    .while( keepGoing)
     .api_(RSVPier.isRSVP, (who) => {
       check( ! RSVPs.member(this), "not yet rsvpied" );
-      return [ ticketFee,  (k) => {   
+      return [ ticketFee, (k) => {   
         k(true);
-        // call(RSVPier.acceptTicket);
-        // Organizer.pay(acceptTicket);
-        // transfer( amt2).to(who);
-        RSVPs.insert(this);
+        transfer( amt, ticketToken).to(who);
         return [keepGoing, howMany + 1 ];
       }];
     })
@@ -127,7 +126,7 @@ export const main = Reach.App(() => {
       check( RSVPs.member(who), "yeah" );
       return [ 0, (k) => {
         k(true);
-        transfer( amt2, rewardToken).to(who);
+        transfer( amt, participationReward).to(who);
         RSVPs.remove(who);
         return [ keepGoing, howMany - 1 ];
       }];
@@ -140,13 +139,8 @@ export const main = Reach.App(() => {
 
   const leftovers = howMany;
   transfer(leftovers * ticketFee).to(Organizer);
-  // transfer(balance(ticketToken), ticketToken).to(Organizer);
-  // transfer(balance(participationReward), participationReward).to(Organizer);
-
-  // ticketToken.burn(supply);
-  // ticketToken.destroy();
-  // participationReward.burn();
-  // participationReward.destroy();
+  transfer(balance(ticketToken), ticketToken).to(Organizer);
+  transfer(balance(participationReward), participationReward).to(Organizer);
   commit();
   exit();
 

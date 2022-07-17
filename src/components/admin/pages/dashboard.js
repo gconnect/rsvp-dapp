@@ -1,16 +1,6 @@
-import { useState } from 'react'
-import { StyleSheet, css } from 'aphrodite'
 import { Tabs, Tab } from 'react-bootstrap'
 import EventBanner from '../EventBanner'
 import Admin from '../../../components/admin/pages/admin'
-
-
-const styles = StyleSheet.create({
-wrapper: {
-
-},
-
-})
 
 export default function Dashboard() {
   return(

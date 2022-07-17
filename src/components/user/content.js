@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import {Button} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import coverImage from '../../images/background.png'
@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import RSVPModal from './rsvpModal'
 import { loadStdlib } from '@reach-sh/stdlib';
 import { login } from '../../api/login'
-const stdlib = loadStdlib('ALGO');
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -85,19 +84,6 @@ const styles = StyleSheet.create({
 
 export default function Content() {
   const [rsvp, setRSVP] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
-
-  //  const tokenBal = async () => {
-  //   const acc = await stdlib.getDefaultAccount();
-  //   const bal = await stdlib.balanceOf("JO7SIKSCJDZBLNUME7OS7SRQC3JCNWZB6BSH7MYK2HEPC4S3PC7MN2COR4",  88045105)
-  //   console.log(`${bal}`)
-  //   // const address = acc.getAddress()
-  //   const address = acc.networkAccount.addr
-  //   console.log(address)
-  // }
-  // useEffect(() =>{
-  //   tokenBal()
-  // }, [])
   
   return(
     <div className={css(styles.wrapper)}>

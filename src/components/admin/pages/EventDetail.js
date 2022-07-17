@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import { Button, Form } from 'react-bootstrap'
-import image from '../../../images/background.png'
 import AttendeeTable from '../AttendeeTable'
 import Admin from '../../../components/admin/pages/admin'
 import { removePinFromIPFS } from '../../../api/deletePinData'
-import { useParams, Navigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { EventList } from '../../../api/EventList'
 import { useEffect } from 'react'
 import loadingGif from '../../../images/loading.gif'
@@ -77,15 +76,7 @@ export default function EventDetail() {
   const [eventID, setEventID] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // const [deleted, setDeleted] = (false)
   const { eventId } = useParams()
-  // setEventID(eventID)
-  // const events = async () => {
-  //   const eventArray =  await EventList("Ticketing")
-  //   setList(eventArray)
-  //     console.log(eventArray)
-  //  }
-  //  events()
 
   const events = async () => {
     setLoading(true)
@@ -108,13 +99,10 @@ export default function EventDetail() {
   // delete unpin item
   const deletePin = async () =>{
     await removePinFromIPFS(event.ipfs_pin_hash)
-    // setDeleted(true)
-    //  return deleted ? <Navigate to='/admin'/> : null
 }
   return(
 
     <Admin>
-  {/* {loading ? <img className={css(styles.loading)} src={loadingGif} height="300px" width="300px"/> :  */}
     {event ?
       <div className={css(styles.wrapper)}>
         <div className={css(styles.eventContainer)}>

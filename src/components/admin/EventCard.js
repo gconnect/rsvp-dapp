@@ -1,6 +1,5 @@
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import image from '../../images/background.png'
 
 const styles = StyleSheet.create({
   eventImage: {

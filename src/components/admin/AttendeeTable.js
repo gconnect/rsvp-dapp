@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Table, Col, Button} from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { AttendeeDetailItem } from './data/attendeeDetailItem'
 import CheckinModal from '../admin/modal/CheckinModal'
@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
 export default function AttendeeTable() {
   const [show, setShow] = useState(false);
   const [checked, setChecked] = useState(false)
-
-  const handleCheckBox = (checked) => checked ? null : <CheckinModal show={show} onHide={() => setShow(false)}/>
 
   return(
     <div>

@@ -1,4 +1,4 @@
-import {Row,  Col} from 'react-bootstrap'
+import { Row,  Col } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 
 const styles = StyleSheet.create({

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import {Row, Container, Col, Card, Button} from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
-import icon from '../../images/background.png'
 import RSVPModal from './rsvpModal'
 import { loadStdlib } from '@reach-sh/stdlib';
 import { useEffect } from 'react';
@@ -55,13 +54,6 @@ export default function EventCard(props) {
     }
     availableTicket()
   }, [])
-
-  //Get the balance of the token
-  // const tokenBal = async () => {
-  //   const bal = await stdlib.balanceOf(props.creatorAccount,  props.tokenId)
-  //   console.log(bal)
-  // }
-  // tokenBal()
    
   return(
       <div>
@@ -71,7 +63,6 @@ export default function EventCard(props) {
             <p>{props.dateTime}</p>
             <Card.Title>{props.title}</Card.Title>
             <div className={css(styles.location)}>
-              {/* <image src='../images/location.png' alt='location' width= '24px' height= '48px' /> */}
               <span>Venue:</span>
               <span className={css(styles.venue)}>{props.venue}</span>
             </div>

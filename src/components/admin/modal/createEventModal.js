@@ -2,13 +2,11 @@ import React, {useState} from 'react'
 import { Modal, Button, Form} from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { loadStdlib } from '@reach-sh/stdlib';
-import axios  from 'axios';
 import { ALGO_MyAlgoConnect as MyAlgoConnect, ALGO_WalletConnect as WalletConnect } from '@reach-sh/stdlib';
-import { createTicketEvent, createToken } from '../../../api/createEvent';
+import { createTicketEvent } from '../../../api/createEvent';
 const stdlib = loadStdlib('ALGO');
 stdlib.setWalletFallback(stdlib.walletFallback({
   providerEnv: 'TestNet', WalletConnect }));
-const FormData = require('form-data');
 
 const styles = StyleSheet.create({
   title: {
@@ -31,10 +29,7 @@ const styles = StyleSheet.create({
 })
 
 export default function CreateEventModal(props) {
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [title, setTitle] = useState("");
   const [fee, setFee] = useState(0);
@@ -43,23 +38,11 @@ export default function CreateEventModal(props) {
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
   const [totalTickets, setTotalTicket] = useState(0);
-  const [tokenId, setTokenId] = useState(0);
   const [tokenName, setToken] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
-  const [creatorAddress, setCreatorAddress] = useState("")
-
-
-function bytesToFloatArray(bytes) {
-  return new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength/Float32Array.BYTES_PER_ELEMENT);
-}
 
   const pinFileToIPFS = async () => {
       await createTicketEvent(image,title, fee, venue, dateTime, description,totalTickets,tokenName)
-
-      // const metaHash = localStorage.getItem('ipfsHash')
-      // console.log(metaHash)
-      // const token = await createToken(tokenName, tokenSymbol, totalTickets, bytesToFloatArray(metaHash))
-      // console.log(token.id['_hex'])
   }
 
   
@@ -67,17 +50,6 @@ function bytesToFloatArray(bytes) {
       setImage(event.target.files[0])
       console.log(image)
     }
-
-    // const createToken = async ()=>{
-    //   const acc = await stdlib.getDefaultAccount();
-    //   const token = await stdlib.launchToken(acc, "MyToken4", "MT4", {supply: 1, decimals: 0});
-    //   await acc.tokenAccept(token.id);
-
-    //   console.log(token.id['_hex'])
-    //   const tok = token.id['_hex']
-    //   const tokenId = parseInt(tok, 16);
-    //   localStorage.setItem('tokenId', tokenId)
-    // }
    
   return(
     <div>

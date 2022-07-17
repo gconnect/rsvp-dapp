@@ -1,15 +1,10 @@
-import React, {useState, useRef, useEffect} from 'react'
-import UAuth from '@uauth/js'
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { StyleSheet, css } from 'aphrodite'
 import { Link } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import ConnectWallet from '../connectWalletModal'
-import CreateEventModal from '../admin/modal/createEventModal'
 import { login } from '../../api/login'
-// import { loadStdlib } from '@reach-sh/stdlib';
-// const stdlib = loadStdlib('ALGO');
-
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -56,24 +51,6 @@ const styles = StyleSheet.create({
 })
 export default function Header() {
   const [wallet, setWallet] = useState(false);
-  const [accountBal, setAccountBal] = useState(0);
-  const [accountAddress, setAccountAddress] = useState('');
-  const account = useRef()
-  const balance = useRef()
-
-  // const isWalletConnected = async () => {
-  //   account.current = await stdlib.getDefaultAccount()
-  //   if(account.current !== undefined){
-  //   setAccountAddress(account.current.networkAccount.addr)
-  //   //  text.substring(0, 5)
-  //   }else{
-  //     setAccountAddress('Connect Wallet')
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   isWalletConnected()
-  // }, [])
 
   return(
     <div className={css(styles.wrapper)}>     
