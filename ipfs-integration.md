@@ -5,7 +5,9 @@ This is an RVSP Dapp that enables users to rsvp for an event. Event organizers c
 
 ## Names/pseudonyms of team members and contact info (e.g., GitHub handle, email address, or other)
 Name: Glory Agatevure
+
 Github Handle: @gconnect
+
 Email: agatevureglory@gmail.com
 
 ## How the project uses IPFS and/or Filecoin and/or decentralized storage services that build on top of either with example links to where in code those technologies are used.
@@ -15,4 +17,12 @@ Email: agatevureglory@gmail.com
 - [Delete Pin](https://github.com/gconnect/rsvp-dapp/blob/master/src/api/deletePinData.js)
 - [Create event implementation](https://github.com/gconnect/rsvp-dapp/blob/master/src/components/admin/modal/createEventModal.js)
 - [List event implementation](https://github.com/gconnect/rsvp-dapp/blob/master/src/components/admin/EventBanner.js) [events](https://github.com/gconnect/rsvp-dapp/blob/master/src/components/user/EventBanner.js)
-- [Delete event] (https://github.com/gconnect/rsvp-dapp/blob/master/src/components/admin/pages/EventDetail.js)
+- [Delete event](https://github.com/gconnect/rsvp-dapp/blob/master/src/components/admin/pages/EventDetail.js)
+
+# Link to the publicly visible source code repository
+[Readme](https://github.com/gconnect/rsvp-dapp#readme)
+
+# Showcase
+[Link to demo video demostrating the use of IPFS Storage]()
+
+
