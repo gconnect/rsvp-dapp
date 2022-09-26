@@ -23,6 +23,6 @@ Email: agatevureglory@gmail.com
 [Readme](https://github.com/gconnect/rsvp-dapp#readme)
 
 # Showcase
-[Link to demo video demostrating the use of IPFS Storage]()
+[Link to demo video demostrating the use of IPFS Storage](https://youtu.be/cXBNNPrBPoI)
 
-
+[Live site](https://rsvp-dapp.vercel.app/)
