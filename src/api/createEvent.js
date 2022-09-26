@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { loadStdlib } from '@reach-sh/stdlib';
 import axios  from 'axios';
+const crypto = require('crypto');
 const stdlib = loadStdlib('ALGO');
 const FormData = require('form-data');
+const fs = require('fs');
 
 
 export const createTicketEvent = async (image, title, fee, venue, dateTime, description,totalTickets, tokenName, tokenSymbol) => {
@@ -15,7 +16,26 @@ export const createTicketEvent = async (image, title, fee, venue, dateTime, desc
   //metadata is optional
 
   const acc = await stdlib.getDefaultAccount();
-  const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0});
+// Hash metadata
+  const fullPath ='../../metadata.json';
+  // const metadatafile =  fs.readFileSync((fullPath), "utf8")
+  const metadatafile = fetch(fullPath).then(r => r.json()).then(json => {console.log('json decoded:', json)});
+  const hash = crypto.createHash('sha256');
+  hash.update(metadatafile);
+  const metadata1 = new Uint8Array(hash.digest()); 
+  console.log(metadata1)
+
+// hash image integrity to be added to the json file
+  const hashImage = crypto.createHash('sha256');
+  hashImage.update(image);
+  const hashImageBase64 = hashImage.digest("base64");
+  const imageIntegrity = "sha256-" + hashImageBase64;
+  // use this in yout metadata.json file
+  console.log("image_integrity : " + imageIntegrity);
+
+  const link = "ipfs://QmbGQyhjy8Boo5gYWcj9EdvFfTf4x4h8DZxMDWTNsfhBxE"
+  
+  const token = await stdlib.launchToken(acc, tokenName, tokenSymbol, { supply: totalTickets, decimals: 0, metadataHash: metadata1, url: link});
   await acc.tokenAccept(token.id);
   const tok = token.id['_hex']
   const tokenId = parseInt(tok, 16);

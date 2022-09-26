@@ -1,0 +1,25 @@
+{
+  "name": "GconnectArt",
+  "description": "Glory's Artwork",
+  "image": "ipfs://QmNiN94DmPqf2ut1D1CRyAiLVXqy5EV8JtES5oJh7ZdzNx",
+  "image_integrity": "sha256-2laYvhe5tGliM1eZd5++yozl1JHA0mJDuv756hg3qdg=",
+  "properties": {
+      "simple_property": "Alice's first artwork",
+      "rich_property": {
+          "name": "AliceArt",
+          "value": "001",
+          "display_value": "001",
+          "class": "emphasis",
+          "css": {
+              "color": "#ffffff",
+              "font-weight": "bold",
+              "text-decoration": "underline"
+          }
+      },
+      "array_property": {
+          "name": "Artwork",
+          "value": [1, 2, 3, 4],
+          "class": "emphasis"
+      }
+  }
+}
